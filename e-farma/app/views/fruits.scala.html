@@ -1,0 +1,12 @@
+@import models.entities.Fruits
+@(fruits: Seq[Fruits])
+
+@for(fruit <- fruits) {
+  <b>@fruit.name</b>
+    @fruit.quanity
+    @fruit.weight
+    @fruit.price
+  <a href="@controllers.routes.FruitsController.update(fruit.id)">Edit</a>
+  <a href="@controllers.routes.FruitsController.delete(fruit.id)">Delete</a>
+  <br>
+}

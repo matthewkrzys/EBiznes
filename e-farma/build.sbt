@@ -13,6 +13,7 @@ libraryDependencies += "org.xerial"        %  "sqlite-jdbc" % "3.30.1"
 libraryDependencies += "com.typesafe.play" %% "play-slick" % "4.0.2"
 libraryDependencies += "com.typesafe.play" %% "play-slick-evolutions" % "4.0.2"
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3" % Test
+libraryDependencies += specs2 % Test
 
 // Adds additional packages into Twirl
 //TwirlKeys.templateImports += "com.efarma.controllers._"

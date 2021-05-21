@@ -1,11 +1,12 @@
 package service
 
 import com.google.inject.Inject
-import models.{Fruits, FruitsList}
+import models.entities.Fruits
+import models.repos.FruitsRepo
 
 import scala.concurrent.Future
 
-class FruitsService @Inject() (items: FruitsList) {
+class FruitsService @Inject() (items: FruitsRepo) {
 
   def addItem(item: Fruits): Future[String] = {
     items.add(item)
