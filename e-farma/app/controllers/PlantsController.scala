@@ -1,61 +1,61 @@
 package controllers
 
 import javax.inject._
-import models.entities.Fruits
-import play.api.mvc._
+import models.entities.Plants
+import models.forms.PlantsForm
 import play.api.libs.json._
-import models.forms.FruitsForm
-import service.FruitsService
+import play.api.mvc._
+import service.PlantsService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class FruitsController @Inject()(cc: ControllerComponents, fruitsService: FruitsService) extends AbstractController(cc) {
+class PlantsController @Inject()(cc: ControllerComponents, plantsService: PlantsService) extends AbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    fruitsService.listAllItems map ( items =>
+    plantsService.listAllItems map ( items =>
       Ok(Json.toJson(items))
-//      Ok(views.html.fruits(items))
+      //      Ok(views.html.honeys(items))
       )
   }
 
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    fruitsService.getItem(id) map { item =>
+    plantsService.getItem(id) map { item =>
       Ok(Json.toJson(item))
-//      Ok(views.html.fruit(item.get))
+      //      Ok(views.html.honey(item.get))
     }
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    FruitsForm.form.bindFromRequest.fold(
+    PlantsForm.form.bindFromRequest.fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
       },
       data => {
-        val newFruitItem = Fruits(0, data.name, data.quantity, data.weight, data.price)
-        fruitsService.addItem(newFruitItem).map(_ => Redirect(routes.FruitsController.getAll))
+        val newSeedItem = Plants(0, data.name, data.quantity, data.species, data.price, data.description)
+        plantsService.addItem(newSeedItem).map(_ => Redirect(routes.FlowersController.getAll))
       })
   }
 
   def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    FruitsForm.form.bindFromRequest.fold(
+    PlantsForm.form.bindFromRequest.fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
       },
       data => {
-        val fruitItem = Fruits(id, data.name, data.quantity, data.weight, data.price)
-        fruitsService.updateItem(fruitItem).map(_ => Redirect(routes.FruitsController.getAll))
+        val seedItem = Plants(id, data.name, data.quantity, data.species, data.price, data.description)
+        plantsService.updateItem(seedItem).map(_ => Redirect(routes.FlowersController.getAll))
       })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    fruitsService.deleteItem(id) map { res =>
-      Redirect(routes.FruitsController.getAll)
+    plantsService.deleteItem(id) map { res =>
+      Redirect(routes.FlowersController.getAll)
     }
   }
 }

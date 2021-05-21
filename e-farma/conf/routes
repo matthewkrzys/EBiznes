@@ -8,10 +8,58 @@ GET     /                           controllers.HomeController.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-#  api controllers mapping
+#  api fruit controller mapping
+GET     /api/fruits                  controllers.FruitsController.getAll
+GET     /api/fruit/:id                  controllers.FruitsController.getById(id: Long)
+POST    /api/fruit/add              controllers.FruitsController.add
+PUT     /api/fruit/update/:id           controllers.FruitsController.update(id: Long)
+DELETE /api/fruit/delete/:id         controllers.FruitsController.delete(id: Long)
 
-GET     /api/todos                  controllers.FruitsController.getAll
-GET     /api/todos/:id                  controllers.FruitsController.getById(id: Long)
-POST    /api/todos/add              controllers.FruitsController.add
-PUT     /api/todos/update/:id           controllers.FruitsController.update(id: Long)
-DELETE /api/todos/delete/:id         controllers.FruitsController.delete(id: Long)
+#  api honey controller mapping
+GET     /api/honeys                  controllers.HoneyController.getAll
+GET     /api/honey/:id                  controllers.HoneyController.getById(id: Long)
+POST    /api/honey/add              controllers.HoneyController.add
+PUT     /api/honey/update/:id           controllers.HoneyController.update(id: Long)
+DELETE /api/honey/delete/:id         controllers.HoneyController.delete(id: Long)
+
+#  api vegetables controller mapping
+GET     /api/vegetables                  controllers.VegetablesController.getAll
+GET     /api/vegetable/:id                  controllers.VegetablesController.getById(id: Long)
+POST    /api/vegetable/add              controllers.VegetablesController.add
+PUT     /api/vegetable/update/:id           controllers.VegetablesController.update(id: Long)
+DELETE /api/vegetable/delete/:id         controllers.VegetablesController.delete(id: Long)
+
+#  api seeds controller mapping
+GET     /api/seeds                  controllers.SeedsController.getAll
+GET     /api/seed/:id                  controllers.SeedsController.getById(id: Long)
+POST    /api/seed/add              controllers.SeedsController.add
+PUT     /api/seed/update/:id           controllers.SeedsController.update(id: Long)
+DELETE /api/seed/delete/:id         controllers.SeedsController.delete(id: Long)
+
+#  api preserves controller mapping
+GET     /api/preserves                  controllers.PreservesController.getAll
+GET     /api/preserve/:id                  controllers.PreservesController.getById(id: Long)
+POST    /api/preserve/add              controllers.PreservesController.add
+PUT     /api/preserve/update/:id           controllers.PreservesController.update(id: Long)
+DELETE /api/preserve/delete/:id         controllers.PreservesController.delete(id: Long)
+
+#  api flowers controller mapping
+GET     /api/flowers                  controllers.FlowersController.getAll
+GET     /api/flower/:id                  controllers.FlowersController.getById(id: Long)
+POST    /api/flower/add              controllers.FlowersController.add
+PUT     /api/flower/update/:id           controllers.FlowersController.update(id: Long)
+DELETE /api/flower/delete/:id         controllers.FlowersController.delete(id: Long)
+
+#  api plants controller mapping
+GET     /api/plants                  controllers.PlantsController.getAll
+GET     /api/plant/:id                  controllers.PlantsController.getById(id: Long)
+POST    /api/plant/add              controllers.PlantsController.add
+PUT     /api/plant/update/:id           controllers.PlantsController.update(id: Long)
+DELETE /api/plant/delete/:id         controllers.PlantsController.delete(id: Long)
+
+#  api tools controller mapping
+GET     /api/tools                  controllers.ToolsController.getAll
+GET     /api/tool/:id                  controllers.ToolsController.getById(id: Long)
+POST    /api/tool/add              controllers.ToolsController.add
+PUT     /api/tool/update/:id           controllers.ToolsController.update(id: Long)
+DELETE /api/tool/delete/:id         controllers.ToolsController.delete(id: Long)

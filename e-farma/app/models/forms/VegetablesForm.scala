@@ -1,17 +1,20 @@
 package models.forms
 
-import models.entities.FruitsFormData
 import play.api.data.Form
 import play.api.data.Forms.{mapping, nonEmptyText, number, of}
 import play.api.data.format.Formats.doubleFormat
 
-object FruitsForm {
+object VegetablesForm {
   val form = Form(
     mapping(
       "name" -> nonEmptyText,
-      "quanity" -> number,
+      "quantity" -> number,
       "weight" -> nonEmptyText,
       "price" -> of(doubleFormat)
-    )(FruitsFormData.apply)(FruitsFormData.unapply)
+    )(VegetablesFormData.apply)(VegetablesFormData.unapply)
   )
 }
+
+case class VegetablesFormData(name: String, quantity: Int, weight: String, price: Double)
+
+

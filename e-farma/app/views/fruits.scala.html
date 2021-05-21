@@ -3,7 +3,7 @@
 
 @for(fruit <- fruits) {
   <b>@fruit.name</b>
-    @fruit.quanity
+    @fruit.quantity
     @fruit.weight
     @fruit.price
   <a href="@controllers.routes.FruitsController.update(fruit.id)">Edit</a>

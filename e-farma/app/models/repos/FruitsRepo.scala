@@ -33,8 +33,8 @@ class FruitsRepo @Inject()( protected val dbConfigProvider: DatabaseConfigProvid
   def update(fruitsItem: Fruits): Future[Int] = {
     dbConfig.db
       .run(fruitsList.filter(_.id === fruitsItem.id)
-        .map(x => (x.name, x.quanity, x.weight, x.price))
-        .update(fruitsItem.name, fruitsItem.quanity, fruitsItem.weight, fruitsItem.price)
+        .map(x => (x.name, x.quantity, x.weight, x.price))
+        .update(fruitsItem.name, fruitsItem.quantity, fruitsItem.weight, fruitsItem.price)
       )
   }
 

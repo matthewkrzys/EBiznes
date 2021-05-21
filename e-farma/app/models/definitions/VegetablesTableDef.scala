@@ -1,9 +1,9 @@
 package models.definitions
 
-import models.entities.Fruits
+import models.entities.Vegetables
 import slick.jdbc.MySQLProfile.api._
 
-class FruitsTableDef(tag: Tag) extends Table[Fruits](tag, "fruits") {
+class VegetablesTableDef(tag: Tag) extends Table[Vegetables](tag, "vegetables") {
 
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
   def name = column[String]("name")
@@ -11,5 +11,5 @@ class FruitsTableDef(tag: Tag) extends Table[Fruits](tag, "fruits") {
   def weight = column[String]("weight")
   def price = column[Double]("price")
 
-  override def * = (id, name, quantity, weight, price) <> ((Fruits.apply _).tupled, Fruits.unapply)
+  override def * = (id, name, quantity, weight, price) <> ((Vegetables.apply _).tupled, Vegetables.unapply)
 }

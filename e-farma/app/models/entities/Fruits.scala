@@ -1,5 +1,9 @@
 package models.entities
 
-case class Fruits(id: Long, name: String, quanity: Int, weight: String, price: Double)
+import play.api.libs.json.Json
 
-case class FruitsFormData(name: String, quanity: Int, weight: String, price: Double)
+case class Fruits(id: Long, name: String, quantity: Int, weight: String, price: Double)
+
+object Fruits {
+  implicit val fruitsFormat = Json.format[Fruits]
+}
