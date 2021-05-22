@@ -28,7 +28,7 @@ class ToolsController @Inject()(cc: ControllerComponents, toolsService: ToolsSer
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    ToolsForm.form.bindFromRequest.fold(
+    ToolsForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
@@ -41,7 +41,7 @@ class ToolsController @Inject()(cc: ControllerComponents, toolsService: ToolsSer
   }
 
   def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    ToolsForm.form.bindFromRequest.fold(
+    ToolsForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)

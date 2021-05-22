@@ -28,7 +28,7 @@ class PreservesController @Inject()(cc: ControllerComponents, preservesService: 
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    PreservesForm.form.bindFromRequest.fold(
+    PreservesForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
@@ -41,7 +41,7 @@ class PreservesController @Inject()(cc: ControllerComponents, preservesService: 
   }
 
   def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    PreservesForm.form.bindFromRequest.fold(
+    PreservesForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)

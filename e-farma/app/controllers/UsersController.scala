@@ -26,7 +26,7 @@ class UsersController @Inject()(cc: ControllerComponents, usersService: UsersSer
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    UsersForm.form.bindFromRequest.fold(
+    UsersForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
@@ -39,7 +39,7 @@ class UsersController @Inject()(cc: ControllerComponents, usersService: UsersSer
   }
 
   def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    UsersForm.form.bindFromRequest.fold(
+    UsersForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)

@@ -28,7 +28,7 @@ class SeedsController @Inject()(cc: ControllerComponents, seedsService: SeedsSer
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    SeedsForm.form.bindFromRequest.fold(
+    SeedsForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
@@ -41,7 +41,7 @@ class SeedsController @Inject()(cc: ControllerComponents, seedsService: SeedsSer
   }
 
   def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    SeedsForm.form.bindFromRequest.fold(
+    SeedsForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
