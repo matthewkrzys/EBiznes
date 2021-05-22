@@ -1,7 +1,7 @@
 -- Fruits schema
 
 -- !Ups
-CREATE TABLE Fruits
+CREATE TABLE fruits
 (
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
@@ -78,7 +78,7 @@ CREATE TABLE Tools
     "description" VARCHAR(45) not NULL
 );
 -- !Downs
-drop table Fruits;
+drop table fruits;
 drop table Honeys;
 drop table Vegetables;
 drop table Seeds;

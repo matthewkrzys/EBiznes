@@ -6,7 +6,6 @@ import models.entities.Fruits
 import play.api.db.slick.DatabaseConfigProvider
 import slick.jdbc.JdbcProfile
 import slick.jdbc.MySQLProfile.api._
-
 import scala.concurrent.{ExecutionContext, Future}
 
 class FruitsRepo @Inject()( protected val dbConfigProvider: DatabaseConfigProvider )(implicit executionContext: ExecutionContext){
@@ -27,7 +26,10 @@ class FruitsRepo @Inject()( protected val dbConfigProvider: DatabaseConfigProvid
   }
 
   def delete(id: Long): Future[Int] = {
-    dbConfig.db.run(fruitsList.filter(_.id === id).delete)
+    val num = id.toString
+    val q = sql"delete from fruits where id=$num".as[String]
+    val affectedRowsCount: Future[Vector[String]] = dbConfig.db.run(q.transactionally)
+    return affectedRowsCount.map(s=>s.length)
   }
 
   def update(fruitsItem: Fruits): Future[Int] = {

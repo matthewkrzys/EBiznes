@@ -9,7 +9,7 @@ import slick.jdbc.MySQLProfile.api._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SeedsRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider )(implicit executionContext: ExecutionContext) {
+class SeedsRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(implicit executionContext: ExecutionContext) {
 
   var seedsList = TableQuery[SeedsTableDef]
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
@@ -27,7 +27,11 @@ class SeedsRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
   }
 
   def delete(id: Long): Future[Int] = {
-    dbConfig.db.run(seedsList.filter(_.id === id).delete)
+    //    dbConfig.db.run(seedsList.filter(_.id === id).delete)
+    val num = id.toString
+    val q = sql"delete from Seeds where id=$num".as[String]
+    val affectedRowsCount: Future[Vector[String]] = dbConfig.db.run(q.transactionally)
+    return affectedRowsCount.map(s => s.length)
   }
 
   def update(seedItem: Seeds): Future[Int] = {

@@ -3,7 +3,7 @@ package models.definitions
 import models.entities.Tools
 import slick.jdbc.MySQLProfile.api._
 
-class ToolsTableDef(tag: Tag) extends Table[Tools](tag, "plants") {
+class ToolsTableDef(tag: Tag) extends Table[Tools](tag, "tools") {
 
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
   def name = column[String]("name")
