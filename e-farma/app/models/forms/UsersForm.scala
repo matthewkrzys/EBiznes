@@ -8,10 +8,13 @@ object UsersForm {
     mapping(
       "name" -> nonEmptyText,
       "surname" -> nonEmptyText,
-      "password" -> nonEmptyText
+      "password" -> nonEmptyText,
+      "email" -> nonEmptyText,
+      "telephone" -> nonEmptyText,
+      "address" -> nonEmptyText
     )(UsersFormData.apply)(UsersFormData.unapply)
   )
 }
 
-case class UsersFormData(name: String, surname: String, password: String)
+case class UsersFormData(name: String, surname: String, password: String, email: String, telephone: String, address: String)
 

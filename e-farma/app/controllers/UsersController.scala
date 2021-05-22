@@ -33,8 +33,8 @@ class UsersController @Inject()(cc: ControllerComponents, usersService: UsersSer
         Future.successful(BadRequest("Error!"))
       },
       data => {
-        val newHistoryItem = Users(0, data.name, data.surname, data.password)
-        usersService.addItem(newHistoryItem).map(_ => Redirect(routes.UsersController.getAll()))
+        val newUserItem = Users(0, data.name, data.surname, data.password, data.email, data.telephone, data.address)
+        usersService.addItem(newUserItem).map(_ => Redirect(routes.UsersController.getAll()))
       })
   }
 
@@ -46,7 +46,7 @@ class UsersController @Inject()(cc: ControllerComponents, usersService: UsersSer
         Future.successful(BadRequest("Error!"))
       },
       data => {
-        val userItem = Users(id, data.name, data.surname, data.password)
+        val userItem = Users(id, data.name, data.surname, data.password, data.email, data.telephone, data.address)
         usersService.updateItem(userItem).map(_ => Redirect(routes.UsersController.getAll()))
       })
   }
