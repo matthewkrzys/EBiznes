@@ -28,7 +28,7 @@ class VegetablesController @Inject()(cc: ControllerComponents, vegetablesForm: V
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    VegetablesForm.form.bindFromRequest.fold(
+    VegetablesForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
@@ -36,12 +36,12 @@ class VegetablesController @Inject()(cc: ControllerComponents, vegetablesForm: V
       },
       data => {
         val newHoneyItem = Vegetables(0, data.name, data.quantity, data.weight, data.price)
-        vegetablesForm.addItem(newHoneyItem).map(_ => Redirect(routes.VegetablesController.getAll))
+        vegetablesForm.addItem(newHoneyItem).map(_ => Redirect(routes.VegetablesController.getAll()))
       })
   }
 
   def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    VegetablesForm.form.bindFromRequest.fold(
+    VegetablesForm.form.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
@@ -49,13 +49,13 @@ class VegetablesController @Inject()(cc: ControllerComponents, vegetablesForm: V
       },
       data => {
         val honeyItem = Vegetables(id, data.name, data.quantity, data.weight, data.price)
-        vegetablesForm.updateItem(honeyItem).map(_ => Redirect(routes.HoneyController.getAll))
+        vegetablesForm.updateItem(honeyItem).map(_ => Redirect(routes.HoneyController.getAll()))
       })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     vegetablesForm.deleteItem(id) map { res =>
-      Redirect(routes.HoneyController.getAll)
+      Redirect(routes.HoneyController.getAll())
     }
   }
 }

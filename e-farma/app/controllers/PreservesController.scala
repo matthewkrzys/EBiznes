@@ -36,7 +36,7 @@ class PreservesController @Inject()(cc: ControllerComponents, preservesService: 
       },
       data => {
         val newSeedItem = Preserves(0, data.name, data.quantity, data.weight, data.price, data.description)
-        preservesService.addItem(newSeedItem).map(_ => Redirect(routes.PreservesController.getAll))
+        preservesService.addItem(newSeedItem).map(_ => Redirect(routes.PreservesController.getAll()))
       })
   }
 
@@ -49,13 +49,13 @@ class PreservesController @Inject()(cc: ControllerComponents, preservesService: 
       },
       data => {
         val seedItem = Preserves(id, data.name, data.quantity, data.weight, data.price, data.description)
-        preservesService.updateItem(seedItem).map(_ => Redirect(routes.PreservesController.getAll))
+        preservesService.updateItem(seedItem).map(_ => Redirect(routes.PreservesController.getAll()))
       })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     preservesService.deleteItem(id) map { res =>
-      Redirect(routes.PreservesController.getAll)
+      Redirect(routes.PreservesController.getAll())
     }
   }
 }

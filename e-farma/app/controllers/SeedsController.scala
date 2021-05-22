@@ -36,7 +36,7 @@ class SeedsController @Inject()(cc: ControllerComponents, seedsService: SeedsSer
       },
       data => {
         val newSeedItem = Seeds(0, data.name, data.quantity, data.weight, data.price, data.description)
-        seedsService.addItem(newSeedItem).map(_ => Redirect(routes.SeedsController.getAll))
+        seedsService.addItem(newSeedItem).map(_ => Redirect(routes.SeedsController.getAll()))
       })
   }
 
@@ -49,13 +49,13 @@ class SeedsController @Inject()(cc: ControllerComponents, seedsService: SeedsSer
       },
       data => {
         val seedItem = Seeds(id, data.name, data.quantity, data.weight, data.price, data.description)
-        seedsService.updateItem(seedItem).map(_ => Redirect(routes.SeedsController.getAll))
+        seedsService.updateItem(seedItem).map(_ => Redirect(routes.SeedsController.getAll()))
       })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     seedsService.deleteItem(id) map { res =>
-      Redirect(routes.SeedsController.getAll)
+      Redirect(routes.SeedsController.getAll())
     }
   }
 }

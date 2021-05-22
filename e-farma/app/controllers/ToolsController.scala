@@ -36,7 +36,7 @@ class ToolsController @Inject()(cc: ControllerComponents, toolsService: ToolsSer
       },
       data => {
         val newSeedItem = Tools(0, data.name, data.quantity, data.price, data.description)
-        toolsService.addItem(newSeedItem).map(_ => Redirect(routes.ToolsController.getAll))
+        toolsService.addItem(newSeedItem).map(_ => Redirect(routes.ToolsController.getAll()))
       })
   }
 
@@ -49,13 +49,13 @@ class ToolsController @Inject()(cc: ControllerComponents, toolsService: ToolsSer
       },
       data => {
         val seedItem = Tools(id, data.name, data.quantity, data.price, data.description)
-        toolsService.updateItem(seedItem).map(_ => Redirect(routes.ToolsController.getAll))
+        toolsService.updateItem(seedItem).map(_ => Redirect(routes.ToolsController.getAll()))
       })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     toolsService.deleteItem(id) map { res =>
-      Redirect(routes.ToolsController.getAll)
+      Redirect(routes.ToolsController.getAll())
     }
   }
 }

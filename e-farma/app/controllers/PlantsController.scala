@@ -36,7 +36,7 @@ class PlantsController @Inject()(cc: ControllerComponents, plantsService: Plants
       },
       data => {
         val newSeedItem = Plants(0, data.name, data.quantity, data.species, data.price, data.description)
-        plantsService.addItem(newSeedItem).map(_ => Redirect(routes.FlowersController.getAll))
+        plantsService.addItem(newSeedItem).map(_ => Redirect(routes.FlowersController.getAll()))
       })
   }
 
@@ -49,13 +49,13 @@ class PlantsController @Inject()(cc: ControllerComponents, plantsService: Plants
       },
       data => {
         val seedItem = Plants(id, data.name, data.quantity, data.species, data.price, data.description)
-        plantsService.updateItem(seedItem).map(_ => Redirect(routes.FlowersController.getAll))
+        plantsService.updateItem(seedItem).map(_ => Redirect(routes.FlowersController.getAll()))
       })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     plantsService.deleteItem(id) map { res =>
-      Redirect(routes.FlowersController.getAll)
+      Redirect(routes.FlowersController.getAll())
     }
   }
 }

@@ -1,7 +1,7 @@
 -- Fruits schema
 
 -- !Ups
-CREATE TABLE fruits
+CREATE TABLE Fruits
 (
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
@@ -77,8 +77,25 @@ CREATE TABLE Tools
     "price"   DOUBLE,
     "description" VARCHAR(45) not NULL
 );
+
+CREATE TABLE Users
+(
+    "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "name"    VARCHAR(45) not NULL,
+    "surname" VARCHAR(45) not NULL,
+    "password"   VARCHAR(45) not NULL
+);
+
+CREATE TABLE History
+(
+    "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "product"    VARCHAR(45) not NULL,
+    "description" VARCHAR(45) not NULL,
+    "users"   INTEGER,
+    FOREIGN KEY(Users) references Users(id)
+);
 -- !Downs
-drop table fruits;
+drop table Fruits;
 drop table Honeys;
 drop table Vegetables;
 drop table Seeds;
@@ -86,3 +103,5 @@ drop table Preserves;
 drop table Flowers;
 drop table Plants;
 drop table Tools;
+drop table Users;
+drop table History;
