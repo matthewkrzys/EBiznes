@@ -1,0 +1,16 @@
+@import helper._
+@import models.forms.VegetablesFormData
+@(vegetable: Form[VegetablesFormData])(implicit request: MessagesRequestHeader)
+
+
+@form(routes.VegetablesController.addVegetableView()) {
+    @helper.CSRF.formField
+    @inputText(vegetable("name"))
+    @inputText(vegetable("quantity"))
+    @inputText(vegetable("weight"))
+    @inputText(vegetable("price"))
+
+    <div class="buttons">
+        <input type="submit" value="Add Vegetable"/>
+    </div>
+}

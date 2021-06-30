@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject._
 import models.entities.Seeds
-import models.forms.SeedsForm
+import models.forms.{SeedsForm, SeedsUpdateFormData}
 import play.api.libs.json._
 import play.api.mvc._
 import service.SeedsService
@@ -11,20 +11,31 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class SeedsController @Inject()(cc: ControllerComponents, seedsService: SeedsService) extends AbstractController(cc) {
+class SeedsController @Inject()(cc: MessagesControllerComponents, seedsService: SeedsService) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     seedsService.listAllItems map ( items =>
       Ok(Json.toJson(items))
-      //      Ok(views.html.honeys(items))
       )
+  }
+
+  def getAllSeedsView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val seeds = seedsService.listAllItems
+    seeds.map(seeds => Ok(views.html.seeds.seeds(seeds)))
   }
 
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     seedsService.getItem(id) map { item =>
       Ok(Json.toJson(item))
-      //      Ok(views.html.honey(item.get))
     }
+  }
+
+  def getByIdSeedView(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val seed = seedsService.getItem(id)
+    seed.map(seed => seed match {
+      case Some(s) => Ok(views.html.seeds.seed(s))
+      case None => Redirect(routes.SeedsController.getAll())
+    })
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -40,17 +51,42 @@ class SeedsController @Inject()(cc: ControllerComponents, seedsService: SeedsSer
       })
   }
 
-  def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    SeedsForm.form.bindFromRequest().fold(
+  def addSeedView: Action[AnyContent] = Action.async { implicit request =>
+
+    SeedsForm.form.bindFromRequest.fold(
+      errorForm => {
+        Future.successful(
+          BadRequest(views.html.seeds.seedadd(errorForm))
+        )
+      },
+      seed => {
+        seedsService.addItem(Seeds(0, seed.name, seed.quantity, seed.weight, seed.price, seed.description)).map { _ =>
+          Redirect(routes.SeedsController.add())
+        }
+      }
+    )
+
+  }
+
+  def updateSeed: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    SeedsForm.updateForm.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
       },
       data => {
-        val seedItem = Seeds(id, data.name, data.quantity, data.weight, data.price, data.description)
+        val seedItem = Seeds(data.id, data.name, data.quantity, data.weight, data.price, data.description)
         seedsService.updateItem(seedItem).map(_ => Redirect(routes.SeedsController.getAll()))
       })
+  }
+
+  def updateSeedView(id: Long): Action[AnyContent] = Action.async { implicit request: MessagesRequest[AnyContent] =>
+    val seed = seedsService.getItem(id)
+    seed.map(seed => {
+      val seedForm = SeedsForm.updateForm.fill(SeedsUpdateFormData(seed.get.id, seed.get.name, seed.get.quantity, seed.get.weight, seed.get.price, seed.get.description))
+      Ok(views.html.seeds.seedupdate(seedForm))
+    })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>

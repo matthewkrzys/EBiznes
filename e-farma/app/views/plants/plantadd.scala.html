@@ -1,0 +1,18 @@
+@import helper._
+@import models.forms.PlantsFormData
+@(plant: Form[PlantsFormData])(implicit request: MessagesRequestHeader)
+
+
+@form(routes.PlantsController.addPlantView()) {
+    @helper.CSRF.formField
+    @inputText(plant("name"))
+    @inputText(plant("surname"))
+    @inputText(plant("password"))
+    @inputText(plant("email"))
+    @inputText(plant("telephone"))
+    @inputText(plant("address"))
+
+    <div class="buttons">
+        <input type="submit" value="Add User"/>
+    </div>
+}

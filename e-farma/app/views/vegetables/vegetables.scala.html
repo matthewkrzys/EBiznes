@@ -1,0 +1,12 @@
+@import models.entities.Vegetables
+@(vegetables: Seq[Vegetables])
+
+@for(vegetable <- vegetables) {
+  <b>@vegetable.name</b>
+  @vegetable.quantity
+  @vegetable.weight
+  @vegetable.price
+  <a href="@controllers.routes.VegetablesController.updateVegetableView(vegetable.id)">Edit</a>
+  <a href="@controllers.routes.VegetablesController.delete(vegetable.id)">Delete</a>
+  <br>
+}

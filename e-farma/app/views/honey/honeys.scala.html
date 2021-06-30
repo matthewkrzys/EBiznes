@@ -1,0 +1,12 @@
+@import models.entities.Honey
+@(honeys: Seq[Honey])
+
+@for(honey <- honeys) {
+  <b>@honey.name</b>
+    @honey.quantity
+    @honey.weight
+    @honey.price
+  <a href="@controllers.routes.HoneyController.updateHoneyView(honey.id)">Edit</a>
+  <a href="@controllers.routes.HoneyController.delete(honey.id)">Delete</a>
+  <br>
+}

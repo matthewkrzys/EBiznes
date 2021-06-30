@@ -1,0 +1,13 @@
+@import models.entities.Seeds
+@(seeds: Seq[Seeds])
+
+@for(seed <- seeds) {
+  <b>@seed.name</b>
+  @seed.quantity
+  @seed.weight
+  @seed.price
+  @seed.description
+  <a href="@controllers.routes.SeedsController.updateSeedView(seed.id)">Edit</a>
+  <a href="@controllers.routes.SeedsController.delete(seed.id)">Delete</a>
+  <br>
+}

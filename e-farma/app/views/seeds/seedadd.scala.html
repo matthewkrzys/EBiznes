@@ -1,0 +1,16 @@
+@import helper._
+@import models.forms.SeedsFormData
+@(seed: Form[SeedsFormData])(implicit request: MessagesRequestHeader)
+
+@form(routes.SeedsController.addSeedView()) {
+    @helper.CSRF.formField
+    @inputText(seed("name"))
+    @inputText(seed("quantity"))
+    @inputText(seed("weight"))
+    @inputText(seed("price"))
+    @inputText(seed("description"))
+
+    <div class="buttons">
+        <input type="submit" value="Add Seed"/>
+    </div>
+}

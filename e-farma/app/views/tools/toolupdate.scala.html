@@ -1,0 +1,16 @@
+@import helper._
+@import models.forms.ToolsUpdateFormData
+@(user: Form[ToolsUpdateFormData])(implicit request: MessagesRequestHeader)
+
+@form(routes.ToolsController.updateTool) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@user("id").value" type="hidden" />
+    @inputText(user("name"))
+    @inputText(user("quantity"))
+    @inputText(user("price"))
+    @inputText(user("description"))
+
+    <div class="buttons">
+        <input type="submit" value="Update Tool"/>
+    </div>
+}

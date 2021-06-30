@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject._
 import models.entities.Tools
-import models.forms.ToolsForm
+import models.forms.{ToolsForm, ToolsUpdateFormData}
 import play.api.libs.json._
 import play.api.mvc._
 import service.ToolsService
@@ -11,7 +11,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class ToolsController @Inject()(cc: ControllerComponents, toolsService: ToolsService) extends AbstractController(cc) {
+class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: ToolsService) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     toolsService.listAllItems map ( items =>
@@ -20,11 +20,23 @@ class ToolsController @Inject()(cc: ControllerComponents, toolsService: ToolsSer
       )
   }
 
+  def getAllToolsView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val tools = toolsService.listAllItems
+    tools.map(tools => Ok(views.html.tools.tools(tools)))
+  }
+
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     toolsService.getItem(id) map { item =>
       Ok(Json.toJson(item))
-      //      Ok(views.html.honey(item.get))
     }
+  }
+
+  def getByIdToolView(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val tool = toolsService.getItem(id)
+    tool.map(tool => tool match {
+      case Some(t) => Ok(views.html.tools.tool(t))
+      case None => Redirect(routes.ToolsController.getAll())
+    })
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -40,17 +52,43 @@ class ToolsController @Inject()(cc: ControllerComponents, toolsService: ToolsSer
       })
   }
 
-  def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    ToolsForm.form.bindFromRequest().fold(
+  def addToolView(): Action[AnyContent] = Action.async { implicit request =>
+
+    ToolsForm.form.bindFromRequest.fold(
+      errorForm => {
+        Future.successful(
+          BadRequest(views.html.tools.tooladd(errorForm))
+        )
+      },
+      tool => {
+        toolsService.addItem(Tools(0, tool.name, tool.quantity, tool.price, tool.description)).map { _ =>
+          Redirect(routes.ToolsController.add())
+        }
+      }
+    )
+
+  }
+
+
+  def updateTool: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    ToolsForm.updateForm.bindFromRequest().fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
       },
       data => {
-        val seedItem = Tools(id, data.name, data.quantity, data.price, data.description)
+        val seedItem = Tools(data.id, data.name, data.quantity, data.price, data.description)
         toolsService.updateItem(seedItem).map(_ => Redirect(routes.ToolsController.getAll()))
       })
+  }
+
+  def updateToolView(id: Long): Action[AnyContent] = Action.async { implicit request: MessagesRequest[AnyContent] =>
+    val tool = toolsService.getItem(id)
+    tool.map(tool => {
+      val toolForm = ToolsForm.updateForm.fill(ToolsUpdateFormData(tool.get.id, tool.get.name, tool.get.quantity, tool.get.price, tool.get.description))
+      Ok(views.html.tools.toolupdate(toolForm))
+    })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>

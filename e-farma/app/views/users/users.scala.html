@@ -1,0 +1,12 @@
+@import models.entities.Users
+@(users: Seq[Users])
+
+@for(user <- users) {
+    <b>@user.id</b>
+    @user.name
+    @user.surname
+    @user.email
+    <a href="@controllers.routes.UsersController.getByIdUserView(user.id)">More Details</a>
+    <a href="@controllers.routes.UsersController.delete(user.id)">Delete</a>
+    <br>
+}

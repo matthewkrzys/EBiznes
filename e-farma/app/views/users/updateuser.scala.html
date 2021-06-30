@@ -1,0 +1,18 @@
+@import helper._
+@import models.forms.UsersUpdateFormData
+@(user: Form[UsersUpdateFormData])(implicit request: MessagesRequestHeader)
+
+@form(routes.UsersController.updateUser) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@user("id").value" type="hidden" />
+    @inputText(user("name"))
+    @inputText(user("surname"))
+    @inputText(user("password"))
+    @inputText(user("email"))
+    @inputText(user("telephone"))
+    @inputText(user("address"))
+
+    <div class="buttons">
+        <input type="submit" value="Update User"/>
+    </div>
+}

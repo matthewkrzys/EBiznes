@@ -1,17 +1,18 @@
 package controllers
 
 import javax.inject._
-import models.entities.Users
-import models.forms.UsersForm
+import models.entities.{History, Users}
+import models.forms.{UsersForm, UsersUpdateFormData}
 import play.api.libs.json._
 import play.api.mvc._
-import service.UsersService
+import service.{HistoryService, UsersService}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import scala.util.{Failure, Success}
 
 @Singleton
-class UsersController @Inject()(cc: ControllerComponents, usersService: UsersService) extends AbstractController(cc) {
+class UsersController @Inject()(cc: MessagesControllerComponents, usersService: UsersService, historyService: HistoryService) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     usersService.listAllItems map ( items =>
@@ -19,10 +20,28 @@ class UsersController @Inject()(cc: ControllerComponents, usersService: UsersSer
       )
   }
 
+  def getAllUsersView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val users = usersService.listAllItems
+    users.map(users => Ok(views.html.users.users(users)))
+  }
+
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     usersService.getItem(id) map { item =>
       Ok(Json.toJson(item))
     }
+  }
+
+  def getByIdUserView(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val user = usersService.getItem(id)
+    var history: Seq[History] = Seq[History]()
+      val hist = historyService.getUserItems(id).onComplete{
+      case Success(histo) => history = histo
+      case Failure(_) => print("fail")
+    }
+    user.map(user => user match {
+      case Some(u) => Ok(views.html.users.user(history, u))
+      case None => Redirect(routes.UsersController.getAll())
+    })
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -38,17 +57,46 @@ class UsersController @Inject()(cc: ControllerComponents, usersService: UsersSer
       })
   }
 
-  def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    UsersForm.form.bindFromRequest().fold(
-      // if any error in submitted data
+  def addUserView: Action[AnyContent] = Action.async { implicit request =>
+
+    UsersForm.form.bindFromRequest.fold(
       errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
+        Future.successful(
+          BadRequest(views.html.users.adduser(errorForm))
+        )
       },
-      data => {
-        val userItem = Users(id, data.name, data.surname, data.password, data.email, data.telephone, data.address)
-        usersService.updateItem(userItem).map(_ => Redirect(routes.UsersController.getAll()))
-      })
+      user => {
+        usersService.addItem(Users(0, user.name, user.surname, user.password, user.email, user.telephone, user.address)).map { _ =>
+          Redirect(routes.UsersController.add())
+        }
+      }
+    )
+
+  }
+
+  def updateUser = Action.async { implicit request =>
+    UsersForm.updateForm.bindFromRequest.fold(
+      errorForm => {
+        Future.successful(
+          BadRequest(views.html.users.updateuser(errorForm))
+        )
+      },
+      user => {
+        val userItem = Users(user.id, user.name, user.surname, user.password, user.email, user.telephone, user.address)
+        usersService.updateItem(userItem).map { _ =>
+          Redirect(routes.UsersController.getAll())
+        }
+      }
+    )
+
+  }
+
+  def updateUserView(id: Long): Action[AnyContent] = Action.async { implicit request: MessagesRequest[AnyContent] =>
+    val user = usersService.getItem(id)
+    user.map(user => {
+      val userForm = UsersForm.updateForm.fill(UsersUpdateFormData(user.get.id, user.get.name, user.get.surname, user.get.password, user.get.email, user.get.telephone, user.get.address))
+      Ok(views.html.users.updateuser(userForm))
+    })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -56,4 +104,5 @@ class UsersController @Inject()(cc: ControllerComponents, usersService: UsersSer
       Redirect(routes.UsersController.getAll())
     }
   }
+
 }

@@ -1,0 +1,12 @@
+@import models.entities.Tools
+@(tools: Seq[Tools])
+
+@for(tool <- tools) {
+  <b>@tool.name</b>
+  @tool.quantity
+  @tool.price
+  @tool.description
+  <a href="@controllers.routes.ToolsController.updateToolView(tool.id)">Edit</a>
+  <a href="@controllers.routes.ToolsController.delete(tool.id)">Delete</a>
+  <br>
+}

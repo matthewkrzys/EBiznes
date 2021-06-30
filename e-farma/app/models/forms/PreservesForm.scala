@@ -1,7 +1,7 @@
 package models.forms
 
 import play.api.data.Form
-import play.api.data.Forms.{mapping, nonEmptyText, number, of}
+import play.api.data.Forms.{longNumber, mapping, nonEmptyText, number, of}
 import play.api.data.format.Formats.doubleFormat
 
 object PreservesForm {
@@ -14,8 +14,20 @@ object PreservesForm {
       "descriptions" -> nonEmptyText
     )(PreservesFormData.apply)(PreservesFormData.unapply)
   )
+
+  val updateForm = Form(
+    mapping(
+      "id" -> longNumber,
+      "name" -> nonEmptyText,
+      "quantity" -> number,
+      "weight" -> nonEmptyText,
+      "price" -> of(doubleFormat),
+      "descriptions" -> nonEmptyText
+    )(PreservesUpdateFormData.apply)(PreservesUpdateFormData.unapply)
+  )
 }
 
 case class PreservesFormData(name: String, quantity: Int, weight: String, price: Double, description: String)
+case class PreservesUpdateFormData(id: Long, name: String, quantity: Int, weight: String, price: Double, description: String)
 
 

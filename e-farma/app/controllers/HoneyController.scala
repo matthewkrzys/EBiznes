@@ -4,14 +4,14 @@ import javax.inject._
 import models.entities.Honey
 import play.api.mvc._
 import play.api.libs.json._
-import models.forms.HoneyForm
+import models.forms.{HoneyForm, HoneyUpdateFormData}
 import service.HoneyService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class HoneyController @Inject()(cc: ControllerComponents, honeysService: HoneyService) extends AbstractController(cc) {
+class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService: HoneyService) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     honeysService.listAllItems map ( items =>
@@ -20,11 +20,23 @@ class HoneyController @Inject()(cc: ControllerComponents, honeysService: HoneySe
       )
   }
 
+  def getAllHoneysView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val honeys = honeysService.listAllItems
+    honeys.map(honeys => Ok(views.html.honey.honeys(honeys)))
+  }
+
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     honeysService.getItem(id) map { item =>
       Ok(Json.toJson(item))
-      //      Ok(views.html.honey(item.get))
     }
+  }
+
+  def getByIdHoneyView(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val honey = honeysService.getItem(id)
+    honey.map(honey => honey match {
+      case Some(h) => Ok(views.html.honey.honey(h))
+      case None => Redirect(routes.HoneyController.getAll())
+    })
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -40,17 +52,43 @@ class HoneyController @Inject()(cc: ControllerComponents, honeysService: HoneySe
       })
   }
 
-  def update(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+
+  def addHoneyView(): Action[AnyContent] = Action.async { implicit request =>
+
     HoneyForm.form.bindFromRequest.fold(
+      errorForm => {
+        Future.successful(
+          BadRequest(views.html.honey.honeyadd(errorForm))
+        )
+      },
+      honey => {
+        honeysService.addItem(Honey(0, honey.name, honey.quantity, honey.weight, honey.price)).map { _ =>
+          Redirect(routes.HoneyController.add())
+        }
+      }
+    )
+
+  }
+
+  def updateHoney: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    HoneyForm.updateForm.bindFromRequest.fold(
       // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
       },
       data => {
-        val honeyItem = Honey(id, data.name, data.quantity, data.weight, data.price)
+        val honeyItem = Honey(data.id, data.name, data.quantity, data.weight, data.price)
         honeysService.updateItem(honeyItem).map(_ => Redirect(routes.HoneyController.getAll()))
       })
+  }
+
+  def updateHoneyView(id: Long): Action[AnyContent] = Action.async { implicit request: MessagesRequest[AnyContent] =>
+    val honey = honeysService.getItem(id)
+    honey.map(honey => {
+      val honeyForm = HoneyForm.updateForm.fill(HoneyUpdateFormData(honey.get.id, honey.get.name, honey.get.quantity, honey.get.weight, honey.get.price))
+      Ok(views.html.honey.honeyupdate(honeyForm))
+    })
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>

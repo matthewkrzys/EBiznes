@@ -1,0 +1,16 @@
+@import helper._
+@import models.forms.FruitsUpdateFormData
+@(user: Form[FruitsUpdateFormData])(implicit request: MessagesRequestHeader)
+
+@form(routes.FruitsController.updateFruit) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@user("id").value" type="hidden" />
+    @inputText(user("name"))
+    @inputText(user("quantity"))
+    @inputText(user("weight"))
+    @inputText(user("price"))
+
+    <div class="buttons">
+        <input type="submit" value="Update Fruit"/>
+    </div>
+}

@@ -1,0 +1,13 @@
+@import models.entities.Preserves
+@(preserves: Seq[Preserves])
+
+@for(preserve <- preserves) {
+  <b>@preserve.name</b>
+  @preserve.quantity
+  @preserve.weight
+  @preserve.price
+  @preserve.description
+  <a href="@controllers.routes.PreservesController.updatePreserveView(preserve.id)">Edit</a>
+  <a href="@controllers.routes.PreservesController.delete(preserve.id)">Delete</a>
+  <br>
+}

@@ -1,0 +1,18 @@
+@import helper._
+@import models.forms.HoneyFormData
+@(honey: Form[HoneyFormData])(implicit request: MessagesRequestHeader)
+
+
+@form(routes.HoneyController.addHoneyView()) {
+    @helper.CSRF.formField
+    @inputText(honey("name"))
+    @inputText(honey("surname"))
+    @inputText(honey("password"))
+    @inputText(honey("email"))
+    @inputText(honey("telephone"))
+    @inputText(honey("address"))
+
+    <div class="buttons">
+        <input type="submit" value="Add User"/>
+    </div>
+}

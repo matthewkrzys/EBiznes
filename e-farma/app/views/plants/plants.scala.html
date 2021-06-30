@@ -1,0 +1,13 @@
+@import models.entities.Plants
+@(plants: Seq[Plants])
+
+@for(plant <- plants) {
+  <b>@plant.name</b>
+  @plant.quantity
+  @plant.species
+  @plant.price
+  @plant.description
+  <a href="@controllers.routes.PlantsController.updatePlantView(plant.id)">Edit</a>
+  <a href="@controllers.routes.PlantsController.delete(plant.id)">Delete</a>
+  <br>
+}

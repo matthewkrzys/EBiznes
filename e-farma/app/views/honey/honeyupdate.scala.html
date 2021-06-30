@@ -1,0 +1,16 @@
+@import helper._
+@import models.forms.HoneyUpdateFormData
+@(user: Form[HoneyUpdateFormData])(implicit request: MessagesRequestHeader)
+
+@form(routes.HoneyController.updateHoney) {
+    @helper.CSRF.formField
+    <input name="id" id="id" value="@user("id").value" type="hidden" />
+    @inputText(user("name"))
+    @inputText(user("quantity"))
+    @inputText(user("weight"))
+    @inputText(user("price"))
+
+    <div class="buttons">
+        <input type="submit" value="Update Honey"/>
+    </div>
+}

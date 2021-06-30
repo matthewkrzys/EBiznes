@@ -1,0 +1,17 @@
+@import helper._
+@import models.forms.PreservesFormData
+@(preserve: Form[PreservesFormData])(implicit request: MessagesRequestHeader)
+
+
+@form(routes.PreservesController.addPreserveView()) {
+    @helper.CSRF.formField
+    @inputText(preserve("name"))
+    @inputText(preserve("quantity"))
+    @inputText(preserve("weight"))
+    @inputText(preserve("price"))
+    @inputText(preserve("description"))
+
+    <div class="buttons">
+        <input type="submit" value="Add Preserve"/>
+    </div>
+}

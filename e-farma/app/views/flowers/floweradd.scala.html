@@ -1,0 +1,17 @@
+@import helper._
+@import models.forms.FlowersFormData
+@(flower: Form[FlowersFormData])(implicit request: MessagesRequestHeader)
+
+
+@form(routes.FlowersController.addFlowerView()) {
+    @helper.CSRF.formField
+    @inputText(flower("name"))
+    @inputText(flower("quantity"))
+    @inputText(flower("species"))
+    @inputText(flower("price"))
+    @inputText(flower("description"))
+
+    <div class="buttons">
+        <input type="submit" value="Add Flower"/>
+    </div>
+}

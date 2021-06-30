@@ -1,0 +1,16 @@
+@import helper._
+@import models.forms.ToolsFormData
+@(tool: Form[ToolsFormData])(implicit request: MessagesRequestHeader)
+
+
+@form(routes.ToolsController.addToolView()) {
+    @helper.CSRF.formField
+    @inputText(tool("name"))
+    @inputText(tool("quantity"))
+    @inputText(tool("price"))
+    @inputText(tool("description"))
+
+    <div class="buttons">
+        <input type="submit" value="Add Tool"/>
+    </div>
+}

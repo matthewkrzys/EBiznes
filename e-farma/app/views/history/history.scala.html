@@ -1,0 +1,12 @@
+@import models.entities.History
+@(history: Seq[History])
+
+@for(h <- history) {
+    <b>@h.id</b>
+    @h.product
+    @h.description
+    @h.users
+    <a href="@controllers.routes.HistoryController.update(h.id)">Edit</a>
+    <a href="@controllers.routes.HistoryController.delete(h.id)">Delete</a>
+    <br>
+}

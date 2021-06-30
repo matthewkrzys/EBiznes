@@ -9,12 +9,14 @@ import slick.jdbc.MySQLProfile.api._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class UsersRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider )(implicit executionContext: ExecutionContext){
+class UsersRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)(implicit executionContext: ExecutionContext) {
+
 
   var usersList = TableQuery[UsersTableDef]
   private val dbConfig = dbConfigProvider.get[JdbcProfile]
 
   def add(usersItem: Users): Future[String] = {
+
     dbConfig.db
       .run(usersList += usersItem)
       .map(res => "UsersItem successfully added")
@@ -30,7 +32,7 @@ class UsersRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
     val num = id.toString
     val q = sql"delete from Users where id=$num".as[String]
     val affectedRowsCount: Future[Vector[String]] = dbConfig.db.run(q.transactionally)
-    return affectedRowsCount.map(s=>s.length)
+    return affectedRowsCount.map(s => s.length)
   }
 
   def update(usersItem: Users): Future[Int] = {

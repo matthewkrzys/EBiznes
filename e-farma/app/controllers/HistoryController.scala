@@ -19,6 +19,11 @@ class HistoryController @Inject()(cc: ControllerComponents, historyService: Hist
       )
   }
 
+  def getAllHistoryView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val history = historyService.listAllItems
+    history.map(history => Ok(views.html.history.history(history)))
+  }
+
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     historyService.getItem(id) map { item =>
       Ok(Json.toJson(item))
