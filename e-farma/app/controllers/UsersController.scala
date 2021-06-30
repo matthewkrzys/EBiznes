@@ -34,10 +34,6 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
   def getByIdUserView(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     val user = usersService.getItem(id)
     var history: Seq[History] = Seq[History]()
-      val hist = historyService.getUserItems(id).onComplete{
-      case Success(histo) => history = histo
-      case Failure(_) => print("fail")
-    }
     user.map(user => user match {
       case Some(u) => Ok(views.html.users.user(history, u))
       case None => Redirect(routes.UsersController.getAll())
