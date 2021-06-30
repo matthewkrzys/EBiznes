@@ -2,14 +2,14 @@
 @import models.entities.History
 @(history: Seq[History], users: Users)
 
-<b>@users.name</b>
+<strong>@users.name</strong>
 @users.surname
 @users.email
 @users.address
 @users.telephone
 <br/>
 @for(h <- history) {
-    <b>@h.id</b>
+    <strong>@h.id</strong>
     @h.product
     @h.description
     @h.users
