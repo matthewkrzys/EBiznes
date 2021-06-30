@@ -16,7 +16,6 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     toolsService.listAllItems map ( items =>
       Ok(Json.toJson(items))
-      //      Ok(views.html.honeys(items))
       )
   }
 
@@ -41,7 +40,6 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     ToolsForm.form.bindFromRequest().fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
@@ -72,7 +70,6 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
 
   def updateTool: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     ToolsForm.updateForm.bindFromRequest().fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))

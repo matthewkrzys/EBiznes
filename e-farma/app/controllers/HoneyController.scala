@@ -16,7 +16,6 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     honeysService.listAllItems map ( items =>
       Ok(Json.toJson(items))
-      //      Ok(views.html.honeys(items))
       )
   }
 
@@ -41,7 +40,6 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     HoneyForm.form.bindFromRequest.fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
@@ -72,7 +70,6 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
 
   def updateHoney: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     HoneyForm.updateForm.bindFromRequest.fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))

@@ -16,7 +16,6 @@ class VegetablesController @Inject()(cc: MessagesControllerComponents, vegetable
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     vegetablesService.listAllItems map ( items =>
       Ok(Json.toJson(items))
-      //      Ok(views.html.honeys(items))
       )
   }
 
@@ -28,7 +27,6 @@ class VegetablesController @Inject()(cc: MessagesControllerComponents, vegetable
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     vegetablesService.getItem(id) map { item =>
       Ok(Json.toJson(item))
-      //      Ok(views.html.honey(item.get))
     }
   }
 
@@ -42,7 +40,6 @@ class VegetablesController @Inject()(cc: MessagesControllerComponents, vegetable
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     VegetablesForm.form.bindFromRequest().fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))

@@ -27,7 +27,6 @@ class PlantsRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvide
   }
 
   def delete(id: Long): Future[Int] = {
-    //    dbConfig.db.run(plantsList.filter(_.id === id).delete)
     val num = id.toString
     val q = sql"delete from Plants where id=$num".as[String]
     val affectedRowsCount: Future[Vector[String]] = dbConfig.db.run(q.transactionally)

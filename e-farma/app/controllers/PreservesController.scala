@@ -16,7 +16,6 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     preservesService.listAllItems map ( items =>
       Ok(Json.toJson(items))
-      //      Ok(views.html.honeys(items))
       )
   }
 
@@ -28,7 +27,6 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     preservesService.getItem(id) map { item =>
       Ok(Json.toJson(item))
-      //      Ok(views.html.honey(item.get))
     }
   }
   def getByIdPreserveView(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -42,7 +40,6 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     PreservesForm.form.bindFromRequest().fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
@@ -72,7 +69,6 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
 
   def updatePreserve: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     PreservesForm.updateForm.bindFromRequest().fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))

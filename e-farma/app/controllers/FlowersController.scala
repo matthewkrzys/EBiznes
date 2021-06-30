@@ -16,7 +16,6 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     flowersService.listAllItems map ( items =>
       Ok(Json.toJson(items))
-      //      Ok(views.html.honeys(items))
       )
   }
 
@@ -28,7 +27,6 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     flowersService.getItem(id) map { item =>
       Ok(Json.toJson(item))
-      //      Ok(views.html.honey(item.get))
     }
   }
 
@@ -42,7 +40,6 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     FlowersForm.form.bindFromRequest.fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
@@ -72,7 +69,6 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
 
   def updateFlower: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     FlowersForm.updateForm.bindFromRequest.fold(
-      // if any error in submitted data
       errorForm => {
         errorForm.errors.foreach(println)
         Future.successful(BadRequest("Error!"))
