@@ -13,6 +13,10 @@ import scala.concurrent.Future
 @Singleton
 class FlowersController @Inject()(cc: MessagesControllerComponents, flowersService: FlowersService) extends MessagesAbstractController(cc) {
 
+  def index() = Action {
+    Ok("ok")
+  }
+
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     flowersService.listAllItems map ( items =>
       Ok(Json.toJson(items))

@@ -1,16 +1,75 @@
+//
+//name := """e-farma"""
+//organization := "com.efarma"
+//
+//version := "1.0-SNAPSHOT"
+//
+//lazy val `e-farma` = (project in file(".")).enablePlugins(PlayScala)
+//
+//
+//resolvers += Resolver.jcenterRepo
+//
+//resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
+//
+//resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
+//
+////resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
+//
+//
+//scalaVersion := "2.12.2"
+//
+//libraryDependencies += guice
+//libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.30.1"
+//libraryDependencies += "com.typesafe.play" %% "play-slick" % "4.0.0"
+//libraryDependencies += "com.typesafe.play" %% "play-slick-evolutions" % "4.0.0"
+//libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3" % Test
+////libraryDependencies += specs2 % Test
+//// https://mvnrepository.com/artifact/io.rest-assured/rest-assured
+//libraryDependencies += "io.rest-assured" % "rest-assured" % "4.4.0" % Test
+//// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+//libraryDependencies += "org.junit.jupiter" % "junit-jupiter-api" % "5.7.2" % Test
+//// https://mvnrepository.com/artifact/io.rest-assured/scala-support
+//libraryDependencies += "io.rest-assured" % "scala-support" % "4.3.1" % Test
+//// https://mvnrepository.com/artifact/io.spray/spray-testkit
+////libraryDependencies += "io.spray" %% "spray-testkit" % "1.3.4" % Test
+//
+//
+////libraryDependencies += "com.iheart" % "ficus" % "1.4.7"
+//libraryDependencies ++= Seq(ehcache, ws, specs2 % Test, guice)
+//libraryDependencies ++= Seq(
+//  "com.iheart" %% "ficus" % "1.4.7",
+//  "com.mohiva" %% "play-silhouette" % "6.1.1",
+//  "com.mohiva" %% "play-silhouette-password-bcrypt" % "6.1.1",
+//  "com.mohiva" %% "play-silhouette-crypto-jca" % "6.1.1",
+//  "com.mohiva" %% "play-silhouette-persistence" % "6.1.1",
+//  "com.mohiva" %% "play-silhouette-totp" % "6.1.1",
+//  "com.mohiva" %% "play-silhouette-testkit" % "6.1.1" % "test",
+//  "net.codingwell" %% "scala-guice" % "4.2.6"
+//)
+name := "e_biznes_backend"
 
-name := """e-farma"""
-organization := "com.efarma"
+version := "1.0"
 
-version := "1.0-SNAPSHOT"
+lazy val `e_biznes_backend` = (project in file(".")).enablePlugins(PlayScala)
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+resolvers += Resolver.jcenterRepo
 
-scalaVersion := "2.13.6"
+resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
 
-libraryDependencies += guice
-libraryDependencies += "org.xerial"        %  "sqlite-jdbc" % "3.30.1"
-libraryDependencies += "com.typesafe.play" %% "play-slick" % "4.0.2"
-libraryDependencies += "com.typesafe.play" %% "play-slick-evolutions" % "4.0.2"
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3" % Test
-libraryDependencies += specs2 % Test
+resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
+
+scalaVersion := "2.12.2"
+
+libraryDependencies ++= Seq(ehcache, ws, specs2 % Test, guice)
+libraryDependencies ++= Seq(
+  "com.typesafe.play" %% "play-slick" % "4.0.0",
+  "com.typesafe.play" %% "play-slick-evolutions" % "4.0.0",
+  "org.xerial" % "sqlite-jdbc" % "3.30.1",
+  "com.iheart" %% "ficus" % "1.4.7",
+  "com.mohiva" %% "play-silhouette" % "6.1.1",
+  "com.mohiva" %% "play-silhouette-password-bcrypt" % "6.1.1",
+  "com.mohiva" %% "play-silhouette-persistence" % "6.1.1",
+  "com.mohiva" %% "play-silhouette-crypto-jca" % "6.1.1",
+  "com.mohiva" %% "play-silhouette-totp" % "6.1.1",
+  "net.codingwell" %% "scala-guice" % "4.2.6"
+)
