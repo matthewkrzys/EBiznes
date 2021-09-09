@@ -2,7 +2,7 @@ package controllers
 
 import javax.inject.{Inject, Singleton}
 import models.entities.CartItem
-import play.api.mvc._
+import play.api.mvc.{Action, _}
 import models.forms.{CartFrom, DeleteForm}
 import play.api.libs.json.Json
 import service.CartService
@@ -41,5 +41,16 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
     cartService.getCart(id) map (items =>
       Ok(Json.toJson(items))
       )
+  }
+
+  def getStatusOrder(userId: Int):  Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    cartService.getStatusOrder(userId) map (items =>
+      Ok(Json.toJson(items))
+      )
+  }
+
+
+  def getBuy(userId: Int) = Action {
+      Ok(cartService.getBuy(userId))
   }
 }

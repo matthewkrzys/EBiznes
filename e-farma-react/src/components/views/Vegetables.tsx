@@ -15,15 +15,9 @@ const defaultVegetables: InterfaceVegetables[] = [];
 
 const Vegetables = () => {
 
-    const [Vegetables, setVegetables]: [InterfaceVegetables[], (posts: InterfaceVegetables[]) => void] = useState(
+    const [vegetables, setVegetables]: [InterfaceVegetables[], (posts: InterfaceVegetables[]) => void] = useState(
         defaultVegetables
     );
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const list: number[] = new Array(Vegetables.length+1);
-    for (let i = 0; i < list.length; i++) {
-        list[i] = 1;
-    }
 
     React.useEffect(() => {
         axios
@@ -57,7 +51,7 @@ const Vegetables = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {Vegetables.map((vegetable) => (
+                        {vegetables.map((vegetable) => (
                             <tr key={vegetable.id}>
                                 <td>{vegetable.id}</td>
                                 <td>{vegetable.name}</td>

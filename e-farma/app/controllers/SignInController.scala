@@ -20,40 +20,14 @@ class SignInController @Inject()(scc: DefaultSilhouetteControllerComponents, add
     val Token(name, value) = CSRF.getToken.get
     val signInRequest = json.as[SignInRequest]
     val credentials = Credentials(signInRequest.email, signInRequest.password)
-    print("jest")
-    println(json)
-    println(name)
-    println(value)
-    println(signInRequest)
 
     credentialsProvider.authenticate(credentials).flatMap { loginInfo =>
-      val output = userRepository.retrieve(loginInfo).flatMap {
-        case Some(user) => {
-          val x: Future[Result] = authenticateUser(user)
-            .map(v => {
-//              println(v.newCookies)
-              println("leci")
-              v.withCookies(Cookie(name, value, httpOnly = false))
-//              println(v.newCookies)
-              v
-            })
-//          println(authenticateUser(user))
-//          println("to tu " + x)
-          x;
-        }
-//        case Some(_) =>
-//          for {
-//            authenticator <- authenticatorService.create(loginInfo)
-//            token <- authenticatorService.init(authenticator)
-//            result <- authenticatorService.embed(token, Ok)
-//          } yield {
-//            logger.debug(s"User ${loginInfo.providerKey} signed success")
-//            result
-//          }
+      userRepository.retrieve(loginInfo).flatMap {
+        case Some(user) =>
+          authenticateUser(user)
+            .map(_.withCookies(Cookie(name, value, httpOnly = false)))
         case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
       }
-      println("out " +output)
-      output
     }.recover {
       case _: ProviderException =>
         Forbidden("Wrong credentials")

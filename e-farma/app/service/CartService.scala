@@ -1,11 +1,13 @@
 package service
 
+import com.google.inject.Inject
+
 import scala.concurrent.Future
-import models.entities.CartItem
+import models.entities.{CartItem, Users}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class CartService {
+class CartService @Inject()(userService: UsersService, buyService: BuyService) {
 
   var listUsersProducts: Map[Int, Map[String, CartItem]] = Map()
 
@@ -43,6 +45,18 @@ class CartService {
       listUsersProducts = Map(element.userId -> Map(index->element))
     }
     "ok"
+  }
+
+  def getStatusOrder(userId: Int) : Future[Iterable[CartItem]] = {
+
+    var user: Future[Option[Users]] = userService.getItem(userId)
+
+    Future { listUsersProducts(userId).values }
+  }
+
+  def getBuy(userId: Int): String = {
+    buyService.modifyTables(listUsersProducts(userId))
+    "You buy this products"
   }
 
 }

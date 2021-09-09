@@ -9,6 +9,8 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import Home from './Home';
 import SignOut from "./SignOut";
+import StatusOrder from "./StatusOrder";
+import Buy from "./Buy";
 
 function Content() {
 
@@ -24,6 +26,8 @@ function Content() {
             <Route exact path="/signOut" component={SignOut}/>
             <Route exact path="/products" component={Products}/>
             <Route exact path="/cart" component={Cart}/>
+            <Route exact path="/statusOrder" component={StatusOrder}/>
+            <Route exact path="/buy" component={Buy}/>
         </BrowserRouter>
     }
 }

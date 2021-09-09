@@ -137,6 +137,12 @@ POST          /api/cart/add                       controllers.CartController.add
 DELETE        /api/cart/delete                    controllers.CartController.delete
 GET           /api/cart/status/:userId                    controllers.CartController.getCartStatus(userId: Int)
 
+#  api statusOrder controller mapping
+GET           /api/cart/statusOrder/:userId                    controllers.CartController.getStatusOrder(userId: Int)
+
+#  api buy controller mapping
+GET           /api/cart/buy/:userId                    controllers.CartController.getBuy(userId: Int)
+
 # Authentication
 POST        /signUp                                   controllers.SignUpController.signUp
 #+nocsrf

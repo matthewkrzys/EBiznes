@@ -55,7 +55,7 @@ const Cart = () => {
             window.location.reload()
         }
 
-        function addQantity(cart: InterfaceCart){
+        function addQantity(cart: InterfaceCart) {
             axios({
                 method: 'post',
                 headers: {
@@ -66,7 +66,7 @@ const Cart = () => {
                     userId: 1,
                     productId: cart.productId,
                     tableName: cart.tableName,
-                    quantity: cart.quantity+1
+                    quantity: cart.quantity + 1
                 }
             });
             window.location.reload()
@@ -83,7 +83,7 @@ const Cart = () => {
                     userId: 1,
                     productId: cart.productId,
                     tableName: cart.tableName,
-                    quantity: cart.quantity-1
+                    quantity: cart.quantity - 1
                 }
             });
             window.location.reload()
@@ -132,7 +132,9 @@ const Cart = () => {
                         </table>
                     </div>
                     <br/>
-                <button> Move to status </button>
+                    <a href="/statusOrder">
+                        <button>Status Order</button>
+                    </a>
                 </div>
             </div>
             <Footer/>

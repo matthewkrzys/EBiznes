@@ -16,16 +16,9 @@ const defaultTools: InterfaceTools[] = [];
 
 const Tools = () => {
 
-    const [Tools, setTools]: [InterfaceTools[], (posts: InterfaceTools[]) => void] = useState(
+    const [tools, setTools]: [InterfaceTools[], (posts: InterfaceTools[]) => void] = useState(
         defaultTools
     );
-
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let list: number[] = new Array(Tools.length+1);
-    for (let i = 0; i < list.length; i++) {
-        list[i] = 1;
-    }
 
     React.useEffect(() => {
         axios
@@ -59,7 +52,7 @@ const Tools = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {Tools.map((tool) => (
+                        {tools.map((tool) => (
                             <tr key={tool.id}>
                                 <td>{tool.id}</td>
                                 <td>{tool.name}</td>
