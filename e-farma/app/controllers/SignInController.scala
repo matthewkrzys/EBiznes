@@ -2,6 +2,8 @@ package controllers
 
 import com.mohiva.play.silhouette.api.actions.SecuredRequest
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
+import com.mohiva.play.silhouette.api.services
+import com.mohiva.play.silhouette.api.services.AuthenticatorResult
 import com.mohiva.play.silhouette.api.util.Credentials
 import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
 import controllers.request.SignInRequest
@@ -21,18 +23,32 @@ class SignInController @Inject()(scc: DefaultSilhouetteControllerComponents, add
     val signInRequest = json.as[SignInRequest]
     val credentials = Credentials(signInRequest.email, signInRequest.password)
 
-    credentialsProvider.authenticate(credentials).flatMap { loginInfo =>
-      userRepository.retrieve(loginInfo).flatMap {
-        case Some(user) =>
-          authenticateUser(user)
-            .map(_.withCookies(Cookie(name, value, httpOnly = false)))
-        case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
+    println("SignIn")
+    println(" credintal " + credentials)
+    println(" complete " + scc.credentialsProvider.authenticate(credentials).isCompleted)
+    credentialsProvider.authenticate(credentials)
+      .flatMap { loginInfo =>
+        println("loginInfo " + loginInfo)
+        userRepository.retrieve(loginInfo).flatMap {
+          case Some(user) =>
+            println(" user " + user)
+            val aut = authenticateUser(user)
+            println(" aut User " + aut)
+            aut
+              .map(_.withCookies(Cookie(name, value, httpOnly = false)))
+            println(" aut User 22 " + aut.isCompleted)
+//            while (!aut.isCompleted) {
+//              println(" czekam")
+//            }
+            aut
+          case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
+        }
       }
-    }.recover {
-      case _: ProviderException =>
-        Forbidden("Wrong credentials")
-          .discardingCookies(DiscardingCookie(name = "PLAY_SESSION"))
-    }
+      .recover {
+        case _: ProviderException =>
+          Forbidden("Wrong credentials")
+            .discardingCookies(DiscardingCookie(name = "PLAY_SESSION"))
+      }
   })
 
   def signOut: Action[AnyContent] = securedAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>

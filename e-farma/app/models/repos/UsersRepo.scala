@@ -32,7 +32,7 @@ class UsersRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
     val num = id.toString
     val q = sql"delete from Users where id=$num".as[String]
     val affectedRowsCount: Future[Vector[String]] = dbConfig.db.run(q.transactionally)
-    return affectedRowsCount.map(s => s.length)
+    affectedRowsCount.map(s => s.length)
   }
 
   def update(usersItem: Users): Future[Int] = {
@@ -45,6 +45,10 @@ class UsersRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
 
   def get(id: Long): Future[Option[Users]] = {
     dbConfig.db.run(usersList.filter(_.id === id).result.headOption)
+  }
+
+  def get(email: String): Future[Option[Users]] = {
+    dbConfig.db.run(usersList.filter(_.email === email).result.headOption)
   }
 
   def listAll: Future[Seq[Users]] = {

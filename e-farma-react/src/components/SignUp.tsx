@@ -1,15 +1,36 @@
 import React  from 'react';
 import { useForm } from "react-hook-form";
+import axios from "axios";
 
 function SignUp() {
     const { register, handleSubmit } = useForm();
 
     function onSubmit(data: any) {
-        alert(JSON.stringify(data));
+        // alert(JSON.stringify(data));
+        axios({
+            method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            url: 'http://localhost:9000/signUp',
+            data: {
+                name: data.name,
+                surname: data.surname,
+                email: data.email,
+                password: data.password,
+                telephone: data.telephone,
+                city: data.city,
+                street: data.street,
+                buildingNumber: data.buildingNumber,
+                apartmentNumber: data.apartmentNumber
+            }
+        });
+
+
     }
 
     return (
-        <div className="App">
+        <div className="signUp">
             <a href="/">Home</a>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>

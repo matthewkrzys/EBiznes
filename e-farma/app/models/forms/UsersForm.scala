@@ -11,7 +11,10 @@ object UsersForm {
       "password" -> nonEmptyText,
       "email" -> nonEmptyText,
       "telephone" -> nonEmptyText,
-      "address" -> nonEmptyText
+      "city" -> nonEmptyText,
+      "street" -> nonEmptyText,
+      "buildingNumber" -> nonEmptyText,
+      "apartmentNumber" -> nonEmptyText
     )(UsersFormData.apply)(UsersFormData.unapply)
   )
 
@@ -23,11 +26,16 @@ object UsersForm {
       "password" -> nonEmptyText,
       "email" -> nonEmptyText,
       "telephone" -> nonEmptyText,
-      "address" -> nonEmptyText
+      "city" -> nonEmptyText,
+      "street" -> nonEmptyText,
+      "buildingNumber" -> nonEmptyText,
+      "apartmentNumber" -> nonEmptyText
     )(UsersUpdateFormData.apply)(UsersUpdateFormData.unapply)
   )
 }
 
-case class UsersFormData(name: String, surname: String, password: String, email: String, telephone: String, address: String)
-case class UsersUpdateFormData(id: Long, name: String, surname: String, password: String, email: String, telephone: String, address: String)
+case class UsersFormData(name: String, surname: String, password: String, email: String, telephone: String,
+                         city: String, street: String, buildingNumber: String, apartmentNumber: String)
+case class UsersUpdateFormData(id: Long, name: String, surname: String, password: String, email: String, telephone: String,
+                               city: String, street: String, buildingNumber: String, apartmentNumber: String)
 

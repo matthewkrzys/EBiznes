@@ -11,7 +11,11 @@ class UsersTableDef(tag: Tag) extends Table[Users](tag, "users") {
   def password = column[String]("password")
   def email = column[String]("email")
   def telephone = column[String]("telephone")
-  def address = column[String]("address")
+  def city = column[String]("city")
+  def street = column[String]("street")
+  def buildingNumber = column[String]("buildingNumber")
+  def apartmentNumber = column[String]("apartmentNumber")
 
-  override def * = (id, name, surname, password, email, telephone, address) <> ((Users.apply _).tupled, Users.unapply)
+  override def * = (id, name, surname, password, email, telephone, city, street,
+    buildingNumber, apartmentNumber) <> ((Users.apply _).tupled, Users.unapply)
 }

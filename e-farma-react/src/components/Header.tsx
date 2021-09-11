@@ -16,7 +16,7 @@ export class Header extends Component {
                             <div className="widgets-wrap float-md-right">
                                 <div className="widget-header icontext">
                                     <div className="text">
-                                        {localStorage.getItem("token") ? this.showSignOut() : this.showSingInAndRegister()}
+                                        {localStorage.getItem("token")  || document.cookie ? this.showSignOut() : this.showSingInAndRegister()}
                                     </div>
                                 </div>
                             </div>
@@ -24,7 +24,7 @@ export class Header extends Component {
                     </div>
                 </div>
             </section>
-            {localStorage.getItem("token") ? this.showNaviBar() : <div/>}
+            {localStorage.getItem("token")  || document.cookie ? this.showNaviBar() : <div/>}
         </header>
     }
 

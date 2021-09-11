@@ -24,6 +24,10 @@ class UsersService @Inject()(items: UsersRepo) {
     items.get(id)
   }
 
+  def getItemByName(name: String): Future[Option[Users]] = {
+    items.get(name)
+  }
+
   def listAllItems: Future[Seq[Users]] = {
     items.listAll
   }

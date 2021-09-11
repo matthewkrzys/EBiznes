@@ -120,9 +120,12 @@ CREATE TABLE Users
     "name"    VARCHAR(45) not NULL,
     "surname" VARCHAR(45) not NULL,
     "password"   VARCHAR(45) not NULL,
-    "email"   VARCHAR(100) not NULL,
+    "email"   VARCHAR(100) not NULL unique ,
     "telephone"   VARCHAR(20) not NULL,
-    "address"   VARCHAR(200) not NULL
+    "city"   VARCHAR(200) not NULL,
+    "street"   VARCHAR(200) not NULL,
+    "buildingNumber"   VARCHAR(200) not NULL,
+    "apartmentNumber"   VARCHAR(200) not NULL
 );
 
 CREATE TABLE History

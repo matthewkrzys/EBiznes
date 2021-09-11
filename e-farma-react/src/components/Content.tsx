@@ -14,8 +14,10 @@ import Buy from "./Buy";
 
 function Content() {
 
-    return <div>
-        {localStorage.getItem("token") ? contentElement() : <Login/>}
+    return <div className="content">
+        {/*<Login/>*/}
+        {contentElement()}
+        {/*{localStorage.getItem("token") ? contentElement() : <Login/>}*/}
     </div>
 
     function contentElement() {

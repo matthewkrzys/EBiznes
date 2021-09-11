@@ -23,7 +23,8 @@ export class Products extends Component {
     }
 
     render() {
-        return <HashRouter>
+        return <div className="App">
+        <HashRouter>
                     <Header/>
                 <section className="section-main bg padding-y">
                     <div className="container-md">
@@ -56,5 +57,6 @@ export class Products extends Component {
                     </div>
                 </section>
         </HashRouter>
+        </div>
     }
 }

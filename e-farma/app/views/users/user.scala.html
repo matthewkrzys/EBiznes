@@ -2,18 +2,17 @@
 @import models.entities.History
 @(history: Seq[History], users: Users)
 
-<strong>@users.name</strong>
-@users.surname
-@users.email
-@users.address
-@users.telephone
-<br/>
-@for(h <- history) {
-    <strong>@h.id</strong>
-    @h.product
-    @h.description
-    @h.users
-    <a href="@controllers.routes.HistoryController.update(h.id)">Edit</a>
-    <a href="@controllers.routes.HistoryController.delete(h.id)">Delete</a>
-    <br>
-}
+@*<strong>@users.name</strong>*@
+@*@users.surname*@
+@*@users.email*@
+@*@users.telephone *@
+@*<br/>*@
+@*@for(h <- history) {*@
+@*    <strong>@h.id</strong>*@
+@*    @h.product*@
+@*    @h.description*@
+@*    @h.users*@
+@*    <a href="@controllers.routes.HistoryController.update(h.id)">Edit</a>*@
+@*    <a href="@controllers.routes.HistoryController.delete(h.id)">Delete</a>*@
+@*    <br>*@
+@*}*@

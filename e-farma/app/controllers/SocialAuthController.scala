@@ -27,6 +27,7 @@ class SocialAuthController @Inject()(scc: DefaultSilhouetteControllerComponents,
             result <- authenticatorService.embed(value, Redirect("http://localhost:3000"))
           } yield {
             print("Po wszystkim ======")
+            println(result)
             val Token(name, value) = CSRF.getToken.get
             result.withCookies(Cookie(name, value, httpOnly = false))
           }

@@ -6,12 +6,13 @@ import Login from "./Login";
 function Home() {
 
     return <div>
-        {localStorage.getItem("token") ? homeDiv() : <Login/>}
+        {localStorage.getItem("token") || document.cookie ? homeDiv() : <Login/>}
+
     </div>
 
 
     function homeDiv() {
-        return <div>
+        return <div className="App">
             <Header/>
             <section className="section-main bg padding-y">
             <div className="container-md">

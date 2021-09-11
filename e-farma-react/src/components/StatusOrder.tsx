@@ -35,7 +35,7 @@ const StatusOrder = () => {
             });
     }, []);
 
-    return (<div>
+    return (<div className="App">
             <Header/>
             <div className="section-main bg padding-y">
                 <div className="container">
