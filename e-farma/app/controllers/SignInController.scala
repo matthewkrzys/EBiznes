@@ -2,18 +2,20 @@ package controllers
 
 import com.mohiva.play.silhouette.api.actions.SecuredRequest
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.api.util.Credentials
+import com.mohiva.play.silhouette.api.util.{Credentials, PasswordInfo}
 import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
 import controllers.request.SignInRequest
 import javax.inject.{Inject, Singleton}
+import models.repository.PasswordInfoRepository
 import play.api.mvc._
 import play.filters.csrf.CSRF.Token
 import play.filters.csrf.{CSRF, CSRFAddToken}
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.{Failure, Success}
 
 @Singleton
-class SignInController @Inject()(scc: DefaultSilhouetteControllerComponents, addToken: CSRFAddToken)(implicit ex: ExecutionContext) extends AbstractAuthController(scc) {
+class SignInController @Inject()(scc: DefaultSilhouetteControllerComponents, addToken: CSRFAddToken, passwordInfoRepository: PasswordInfoRepository)(implicit ex: ExecutionContext) extends AbstractAuthController(scc) {
 
   def signIn: Action[AnyContent] = addToken(unsecuredAction.async { implicit request: Request[AnyContent] =>
     val json = request.body.asJson.get
@@ -25,8 +27,20 @@ class SignInController @Inject()(scc: DefaultSilhouetteControllerComponents, add
       .flatMap { loginInfo =>
         userRepository.retrieve(loginInfo).flatMap {
           case Some(user) =>
-            authenticateUser(user)
-                        .map(_.withCookies(Cookie(name, value, httpOnly = false)))
+            println(loginInfo)
+            println(" user " + user)
+            var password: String = ""
+            passwordInfoRepository.find(loginInfo).onComplete {
+              case Success(value) => password = value.get.password
+              case Failure(e) => e.printStackTrace
+            }
+
+            val x = authenticateUser(user)
+              .map(_.withCookies(Cookie(name, value, httpOnly = false))
+                .withCookies(Cookie("Auth", password, httpOnly = false))
+                .withCookies(Cookie("Id", user.id.toString, httpOnly = false)))
+
+            x
           case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
         }
       }

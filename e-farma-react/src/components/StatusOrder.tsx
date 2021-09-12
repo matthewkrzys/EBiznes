@@ -21,7 +21,7 @@ const StatusOrder = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceStatusOrder[]>(common.URL + '/api/cart/statusOrder/1', {
+            .get<InterfaceStatusOrder[]>(common.URL + '/api/cart/statusOrder/'+common.ID, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

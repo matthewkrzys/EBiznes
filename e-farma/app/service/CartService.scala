@@ -19,6 +19,9 @@ class CartService @Inject()(userService: UsersService, buyService: BuyService) {
   }
 
   def getCart(userId: Int) : Future[Iterable[CartItem]] = {
+    if (!listUsersProducts.contains(userId)){
+     listUsersProducts = listUsersProducts.updated(userId, Map())
+    }
     Future { listUsersProducts(userId).values }
   }
 
@@ -56,6 +59,7 @@ class CartService @Inject()(userService: UsersService, buyService: BuyService) {
 
   def getBuy(userId: Int): String = {
     buyService.modifyTables(listUsersProducts(userId))
+    listUsersProducts = listUsersProducts.removed(userId)
     "You buy this products"
   }
 

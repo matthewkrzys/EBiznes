@@ -42,7 +42,7 @@ class UserRepository @Inject()(dbConfigProvider: DatabaseConfigProvider, implici
   }.map(_.map(dto => toModel(dto)))
 
   def create(providerId: String, providerKey: String, email: String): Future[User] = db.run {
-    print("create ")
+
     (user.map(c => (c.providerId, c.providerKey, c.email))
       returning user.map(_.id)
       into { case ((providerId, providerKey, email), id) => UserDto(id, providerId, providerKey, email) }

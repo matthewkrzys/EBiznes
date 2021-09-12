@@ -21,8 +21,9 @@ const Cart = () => {
     );
 
     React.useEffect(() => {
+        console.log(common.ID)
         axios
-            .get<InterfaceCart[]>(common.URL + '/api/cart/status/1', {
+            .get<InterfaceCart[]>(common.URL + '/api/cart/status/'+common.ID, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -47,7 +48,7 @@ const Cart = () => {
                 },
                 url: common.URL + '/api/cart/delete',
                 data: {
-                    userId: cart.userId,
+                    userId: common.ID,
                     productId: cart.productId,
                     tableName: cart.tableName,
                     quantity: cart.quantity
@@ -64,7 +65,7 @@ const Cart = () => {
                 },
                 url: common.URL + '/api/cart/add',
                 data: {
-                    userId: 1,
+                    userId: common.ID,
                     productId: cart.productId,
                     tableName: cart.tableName,
                     quantity: cart.quantity + 1
@@ -81,7 +82,7 @@ const Cart = () => {
                 },
                 url: common.URL + '/api/cart/add',
                 data: {
-                    userId: 1,
+                    userId: common.ID,
                     productId: cart.productId,
                     tableName: cart.tableName,
                     quantity: cart.quantity - 1
@@ -112,9 +113,8 @@ const Cart = () => {
                         <table>
                             <thead>
                             <tr>
-                                <th>userId</th>
-                                <th>productId</th>
-                                <th>tableName</th>
+                                <th>category</th>
+                                <th>productName</th>
                                 <th>quantity</th>
                                 <th>action</th>
                             </tr>
@@ -122,9 +122,8 @@ const Cart = () => {
                             <tbody>
                             {Cart.map((cart) => (
                                 <tr>
-                                    <td>{cart.userId}</td>
-                                    <td>{cart.productId}</td>
                                     <td>{cart.tableName}</td>
+                                    <td>{cart.productName}</td>
                                     <td>{cart.quantity}</td>
                                     <td>{deleteElement(cart)}</td>
                                 </tr>

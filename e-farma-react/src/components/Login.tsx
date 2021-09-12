@@ -38,7 +38,8 @@ const Login = () => {
             data: {
                 email: data.email,
                 password: data.password,
-            }
+            },
+            withCredentials: true,
         }).then(result => {
             console.log(result)
         });
@@ -68,7 +69,7 @@ const Login = () => {
                 </label>
                 <div>
                     <a href="/">
-                        <button type="submit" onClick={onSubmit} >Submit </button>
+                        <button type="submit" >Submit </button>
                     </a>
                 </div>
             <div className="modal-footer small-margin-bottom">

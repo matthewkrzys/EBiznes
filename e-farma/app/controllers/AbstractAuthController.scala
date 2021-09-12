@@ -15,10 +15,7 @@ abstract class AbstractAuthController(scc: DefaultSilhouetteControllerComponents
         println(" auth 2 " + authenticator)
         authenticatorService.init(authenticator).flatMap { v =>
           println(" v " + v)
-//          val a = authenticatorService.embed(v, Redirect("http://localhost:3000"))
-          val a = authenticatorService.embed(v, Ok("Authenticated"))
-          println(a)
-          a
+          authenticatorService.embed(v, Ok("Authenticated"))
         }
       }
   }

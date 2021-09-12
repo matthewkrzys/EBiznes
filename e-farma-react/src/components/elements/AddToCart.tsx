@@ -13,7 +13,7 @@ const addToCart = (id: number, tableName: string) => {
             },
             url: common.URL + '/api/cart/add',
             data: {
-                userId: 1,
+                userId: common.ID,
                 productId: param,
                 tableName: tableName,
                 quantity: 1

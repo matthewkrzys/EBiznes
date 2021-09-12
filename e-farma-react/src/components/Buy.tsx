@@ -10,7 +10,7 @@ const Buy = () => {
 
     React.useEffect(() => {
         axios
-            .get(common.URL + '/api/cart/buy/1', {
+            .get(common.URL + '/api/cart/buy/'+common.ID, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
