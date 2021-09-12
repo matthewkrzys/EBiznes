@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import {common} from "../common";
 
 const addToCart = (id: number, tableName: string) => {
 
@@ -10,7 +11,7 @@ const addToCart = (id: number, tableName: string) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            url: 'http://localhost:9000/api/cart/add',
+            url: common.URL + '/api/cart/add',
             data: {
                 userId: 1,
                 productId: param,

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Header} from "./Header";
 import axios from "axios";
 import {useForm} from "react-hook-form";
+import {common} from "./common";
 
 // interface Props {
 //     updateToken: (event: string) => void
@@ -15,7 +16,7 @@ const Login = () => {
     function onSubmit(data: any) {
         // updateToken("jet");
         console.log(data)
-        // localStorage.setItem("token", "Bearer");
+        localStorage.setItem("token", "Bearer");
         // axios.post('http://localhost:9000/signIn',{
         //     headers: {
         //         'Content-Type': 'application/json',
@@ -33,7 +34,7 @@ const Login = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            url: 'http://localhost:9000/signIn',
+            url: common.URL + '/signIn',
             data: {
                 email: data.email,
                 password: data.password,
@@ -46,7 +47,7 @@ const Login = () => {
 
     function authenticateGoogle() {
         console.log("google")
-        window.open("http://localhost:9000/authenticate/google");
+        window.open(common.URL + "/authenticate/google");
         setTimeout (window.close, 5000);
         // window.location.href = "http://localhost:9000/authenticate/google";
 
@@ -73,12 +74,10 @@ const Login = () => {
             <div className="modal-footer small-margin-bottom">
                 <div className="col s3">
                     <div className="image">
-                        {/*<a href="http://localhost:9000/authenticate/google">*/}
                         <button className="waves-effect waves-light btn blue"
                                 onClick={() => authenticateGoogle()}>
                             <img src="assets/images/google.png"  alt="google"/>
                         </button>
-                        {/*</a>*/}
                     </div>
                 </div>
             </div>

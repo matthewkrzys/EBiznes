@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from "axios";
 import {Header} from "./Header";
 import {Footer} from "./Footer";
+import {common} from "./common";
 
 
 interface InterfaceCart {
@@ -21,7 +22,7 @@ const Cart = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceCart[]>('http://localhost:9000/api/cart/status/1', {
+            .get<InterfaceCart[]>(common.URL + '/api/cart/status/1', {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -44,7 +45,7 @@ const Cart = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                url: 'http://localhost:9000/api/cart/delete',
+                url: common.URL + '/api/cart/delete',
                 data: {
                     userId: cart.userId,
                     productId: cart.productId,
@@ -61,7 +62,7 @@ const Cart = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                url: 'http://localhost:9000/api/cart/add',
+                url: common.URL + '/api/cart/add',
                 data: {
                     userId: 1,
                     productId: cart.productId,
@@ -78,7 +79,7 @@ const Cart = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                url: 'http://localhost:9000/api/cart/add',
+                url: common.URL + '/api/cart/add',
                 data: {
                     userId: 1,
                     productId: cart.productId,

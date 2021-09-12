@@ -1,0 +1,18 @@
+version: '2'
+services:
+  backend:
+    build: .
+    ports:
+      - "81:9000"
+    volumes:
+      - ./e-farma:/home/krzysmateusz/projekt/backend
+    working_dir: /home/krzysmateusz/projekt/backend
+    command: sh -c "sbt clean compile && sbt run"
+  frontend:
+    build: .
+    ports:
+      - "80:3000"
+    volumes:
+      - ./e-farma-react:/home/krzysmateusz/projekt/frontend
+    working_dir: /home/krzysmateusz/projekt/frontend
+    command: sh -c "npm install && npm start"

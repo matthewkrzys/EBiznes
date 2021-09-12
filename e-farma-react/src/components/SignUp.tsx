@@ -1,6 +1,7 @@
 import React  from 'react';
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import {common} from "./common";
 
 function SignUp() {
     const { register, handleSubmit } = useForm();
@@ -12,7 +13,7 @@ function SignUp() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            url: 'http://localhost:9000/signUp',
+            url: common.URL + '/signUp',
             data: {
                 name: data.name,
                 surname: data.surname,

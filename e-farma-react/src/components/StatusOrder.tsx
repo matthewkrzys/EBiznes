@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Header} from "./Header";
 import {Footer} from "./Footer";
+import {common} from "./common";
 
 interface InterfaceStatusOrder {
     userId: number;
@@ -20,7 +21,7 @@ const StatusOrder = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceStatusOrder[]>('http://localhost:9000/api/cart/statusOrder/1', {
+            .get<InterfaceStatusOrder[]>(common.URL + '/api/cart/statusOrder/1', {
                 headers: {
                     'Content-Type': 'application/json',
                 },

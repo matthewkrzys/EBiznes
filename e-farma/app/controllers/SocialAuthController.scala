@@ -24,7 +24,7 @@ class SocialAuthController @Inject()(scc: DefaultSilhouetteControllerComponents,
             _ <- authInfoRepository.save(profile.loginInfo, authInfo)
             authenticator <- authenticatorService.create(profile.loginInfo)
             value <- authenticatorService.init(authenticator)
-            result <- authenticatorService.embed(value, Redirect("http://localhost:3000"))
+            result <- authenticatorService.embed(value, Redirect("http://localhost:80"))
           } yield {
             print("Po wszystkim ======")
             println(result)
