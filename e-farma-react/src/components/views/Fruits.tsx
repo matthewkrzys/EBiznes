@@ -15,16 +15,9 @@ const defaultFruits: InterfaceFruits[] = [];
 
 const Fruits = () => {
 
-    const [FruitElements, setFruits]: [InterfaceFruits[], (posts: InterfaceFruits[]) => void] = useState(
+    const [FruitItems, setFruitsItems]: [InterfaceFruits[], (posts: InterfaceFruits[]) => void] = useState(
         defaultFruits
     );
-
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let list: number[] = new Array(FruitElements.length+1);
-    for (let i = 0; i < list.length; i++) {
-        list[i] = 1;
-    }
 
     React.useEffect(() => {
         axios
@@ -35,7 +28,7 @@ const Fruits = () => {
                 timeout: 10000,
             })
             .then((response) => {
-                setFruits(response.data);
+                setFruitsItems(response.data);
                 console.log(response)
             })
             .catch((ex) => {
@@ -58,7 +51,7 @@ const Fruits = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {FruitElements.map((fruit) => (
+                        {FruitItems.map((fruit) => (
                             <tr key={fruit.id}>
                                 <td>{fruit.id}</td>
                                 <td>{fruit.name}</td>

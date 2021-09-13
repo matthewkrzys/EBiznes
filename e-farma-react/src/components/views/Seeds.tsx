@@ -17,16 +17,9 @@ const defaultSeeds: InterfaceSeeds[] = [];
 
 const Seeds = () => {
 
-    const [Seeds, setSeeds]: [InterfaceSeeds[], (posts: InterfaceSeeds[]) => void] = useState(
+    const [SeedsItems, setSeedsItems]: [InterfaceSeeds[], (posts: InterfaceSeeds[]) => void] = useState(
         defaultSeeds
     );
-
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let list: number[] = new Array(Seeds.length+1);
-    for (let i = 0; i < list.length; i++) {
-        list[i] = 1;
-    }
 
     React.useEffect(() => {
         axios
@@ -37,7 +30,7 @@ const Seeds = () => {
                 timeout: 10000,
             })
             .then((response) => {
-                setSeeds(response.data);
+                setSeedsItems(response.data);
                 console.log(response)
             })
             .catch((ex) => {
@@ -61,7 +54,7 @@ const Seeds = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {Seeds.map((seed) => (
+                        {SeedsItems.map((seed) => (
                             <tr key={seed.id}>
                                 <td>{seed.id}</td>
                                 <td>{seed.name}</td>

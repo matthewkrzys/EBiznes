@@ -1,7 +1,7 @@
 import React  from 'react';
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import {common} from "../Common";
+import {Common} from "../Common";
 
 function ChangeAddress() {
     const { register, handleSubmit } = useForm();
@@ -13,9 +13,9 @@ function ChangeAddress() {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },
-            url: common.URL + '/api/user/update ',
+            url: Common.URL + '/api/user/update ',
             data: {
-                id: common.ID,
+                id: Common.ID,
                 name: data.name,
                 surname: data.surname,
                 email: data.email,

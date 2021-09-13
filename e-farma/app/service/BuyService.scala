@@ -9,6 +9,9 @@ import scala.util.{Failure, Success}
 class BuyService @Inject()(flowersService: FlowersService, fruitsService: FruitsService, honeyService: HoneyService,
                            plantsService: PlantsService, preservesService: PreservesService, seedsService: SeedsService,
                            toolsService: ToolsService, vegetablesService: VegetablesService) {
+
+  val errorMessage = "An error has occurred: ";
+
   def modifyTables(stringToItem: Map[String, CartItem]) = {
       println(stringToItem)
       stringToItem.map(item => {
@@ -42,7 +45,7 @@ class BuyService @Inject()(flowersService: FlowersService, fruitsService: Fruits
         println(flower)
         flowersService.updateItem(newFlower)
       }
-      case Failure(t) => println("An error has occurred: " + t.getMessage)
+      case Failure(t) => println(errorMessage + t.getMessage)
     }
   }
 
@@ -58,7 +61,7 @@ class BuyService @Inject()(flowersService: FlowersService, fruitsService: Fruits
         println(fruit)
         fruitsService.updateItem(newFruit)
       }
-      case Failure(t) => println("An error has occurred: " + t.getMessage)
+      case Failure(t) => println(errorMessage + t.getMessage)
     }
   }
 
@@ -74,7 +77,7 @@ class BuyService @Inject()(flowersService: FlowersService, fruitsService: Fruits
         println(honey)
         honeyService.updateItem(newHoney)
       }
-      case Failure(t) => println("An error has occurred: " + t.getMessage)
+      case Failure(t) => println(errorMessage + t.getMessage)
     }
   }
 
@@ -90,7 +93,7 @@ class BuyService @Inject()(flowersService: FlowersService, fruitsService: Fruits
         println(plant)
         plantsService.updateItem(newPlant)
       }
-      case Failure(t) => println("An error has occurred: " + t.getMessage)
+      case Failure(t) => println(errorMessage + t.getMessage)
     }
   }
 
@@ -106,7 +109,7 @@ class BuyService @Inject()(flowersService: FlowersService, fruitsService: Fruits
         println(preserve)
         preservesService.updateItem(newPreserve)
       }
-      case Failure(t) => println("An error has occurred: " + t.getMessage)
+      case Failure(t) => println(errorMessage + t.getMessage)
     }
   }
 
@@ -122,7 +125,7 @@ class BuyService @Inject()(flowersService: FlowersService, fruitsService: Fruits
         println(seed)
         seedsService.updateItem(newSeed)
       }
-      case Failure(t) => println("An error has occurred: " + t.getMessage)
+      case Failure(t) => println(errorMessage + t.getMessage)
     }
   }
 
@@ -137,7 +140,7 @@ class BuyService @Inject()(flowersService: FlowersService, fruitsService: Fruits
         println(tool)
         toolsService.updateItem(newTool)
       }
-      case Failure(t) => println("An error has occurred: " + t.getMessage)
+      case Failure(t) => println(errorMessage + t.getMessage)
     }
   }
 
@@ -153,7 +156,7 @@ class BuyService @Inject()(flowersService: FlowersService, fruitsService: Fruits
         println(vegetable)
         vegetablesService.updateItem(newVegetable)
       }
-      case Failure(t) => println("An error has occurred: " + t.getMessage)
+      case Failure(t) => println(errorMessage + t.getMessage)
     }
   }
 }

@@ -16,16 +16,9 @@ const defaultHoney: InterfaceHoney[] = [];
 
 const Honey = () => {
 
-    const [Honey, setHoney]: [InterfaceHoney[], (posts: InterfaceHoney[]) => void] = useState(
+    const [HoneyItems, setHoneyItems]: [InterfaceHoney[], (posts: InterfaceHoney[]) => void] = useState(
         defaultHoney
     );
-
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let list: number[] = new Array(Honey.length+1);
-    for (let i = 0; i < list.length; i++) {
-        list[i] = 1;
-    }
 
     React.useEffect(() => {
         axios
@@ -36,7 +29,7 @@ const Honey = () => {
                 timeout: 10000,
             })
             .then((response) => {
-                setHoney(response.data);
+                setHoneyItems(response.data);
                 console.log(response)
             })
             .catch((ex) => {
@@ -59,7 +52,7 @@ const Honey = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {Honey.map((honey) => (
+                        {HoneyItems.map((honey) => (
                             <tr key={honey.id}>
                                 <td>{honey.id}</td>
                                 <td>{honey.name}</td>

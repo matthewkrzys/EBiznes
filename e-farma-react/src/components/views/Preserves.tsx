@@ -17,16 +17,9 @@ const defaultPreserves: InterfacePreserves[] = [];
 
 const Preserves = () => {
 
-    const [Preserves, setPreserves]: [InterfacePreserves[], (posts: InterfacePreserves[]) => void] = useState(
+    const [PreservesItems, setPreservesItems]: [InterfacePreserves[], (posts: InterfacePreserves[]) => void] = useState(
         defaultPreserves
     );
-
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let list: number[] = new Array(Preserves.length+1);
-    for (let i = 0; i < list.length; i++) {
-        list[i] = 1;
-    }
 
     React.useEffect(() => {
         axios
@@ -37,7 +30,7 @@ const Preserves = () => {
                 timeout: 10000,
             })
             .then((response) => {
-                setPreserves(response.data);
+                setPreservesItems(response.data);
                 console.log(response)
             })
             .catch((ex) => {
@@ -61,7 +54,7 @@ const Preserves = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {Preserves.map((preserve) => (
+                        {PreservesItems.map((preserve) => (
                             <tr key={preserve.id}>
                                 <td>{preserve.id}</td>
                                 <td>{preserve.name}</td>

@@ -302,7 +302,6 @@ ul.row, ul.row-sm {
   margin-bottom: 7px;
 }
 .list-check > li::before {
-  font-family: "Font Awesome 5 Free";
   font-weight: 900;
   font-size: 12px;
   color: #00b517;
@@ -521,7 +520,6 @@ a[class*=card]:hover .title {
   position: absolute;
   left: 0;
   bottom: 0;
-  left: 0;
   z-index: 10;
   width: 100%;
   padding: 7px 20px;

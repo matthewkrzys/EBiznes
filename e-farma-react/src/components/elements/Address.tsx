@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import {common} from "../Common";
+import {Common} from "../Common";
 
 interface InterfaceAddress {
     id: number;
@@ -20,7 +20,7 @@ const Address: React.FC = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceAddress>(common.URL + '/api/user/email/matthewkrzys10@gmail.com', {
+            .get<InterfaceAddress>(Common.URL + '/api/user/email/matthewkrzys10@gmail.com', {
                 headers: {
                     'Content-Type': 'application/json',
                 },

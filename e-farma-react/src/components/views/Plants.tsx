@@ -17,16 +17,9 @@ const defaultPlants: InterfacePlants[] = [];
 
 const Plants = () => {
 
-    const [Plants, setPlants]: [InterfacePlants[], (posts: InterfacePlants[]) => void] = useState(
+    const [PlantsItems, setPlantsItems]: [InterfacePlants[], (posts: InterfacePlants[]) => void] = useState(
         defaultPlants
     );
-
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let list: number[] = new Array(Plants.length+1);
-    for (let i = 0; i < list.length; i++) {
-        list[i] = 1;
-    }
 
     React.useEffect(() => {
         axios
@@ -37,7 +30,7 @@ const Plants = () => {
                 timeout: 10000,
             })
             .then((response) => {
-                setPlants(response.data);
+                setPlantsItems(response.data);
                 console.log(response)
             })
             .catch((ex) => {
@@ -61,7 +54,7 @@ const Plants = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {Plants.map((plant) => (
+                        {PlantsItems.map((plant) => (
                             <tr key={plant.id}>
                                 <td>{plant.id}</td>
                                 <td>{plant.name}</td>

@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Header} from "./Header";
 import {Footer} from "./Footer";
 import axios from "axios";
-import {common} from "./Common";
+import {Common} from "./Common";
 
 const Buy = () => {
 
@@ -10,7 +10,7 @@ const Buy = () => {
 
     React.useEffect(() => {
         axios
-            .get(common.URL + '/api/cart/buy/'+common.ID, {
+            .get(Common.URL + '/api/cart/buy/'+Common.ID, {
                 headers: {
                     'Content-Type': 'application/json',
                 },

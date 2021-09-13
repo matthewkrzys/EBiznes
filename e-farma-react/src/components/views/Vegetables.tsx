@@ -15,7 +15,7 @@ const defaultVegetables: InterfaceVegetables[] = [];
 
 const Vegetables = () => {
 
-    const [vegetables, setVegetables]: [InterfaceVegetables[], (posts: InterfaceVegetables[]) => void] = useState(
+    const [vegetablesItems, setVegetablesItems]: [InterfaceVegetables[], (posts: InterfaceVegetables[]) => void] = useState(
         defaultVegetables
     );
 
@@ -28,7 +28,7 @@ const Vegetables = () => {
                 timeout: 10000,
             })
             .then((response) => {
-                setVegetables(response.data);
+                setVegetablesItems(response.data);
                 console.log(response)
             })
             .catch((ex) => {
@@ -51,7 +51,7 @@ const Vegetables = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {vegetables.map((vegetable) => (
+                        {vegetablesItems.map((vegetable) => (
                             <tr key={vegetable.id}>
                                 <td>{vegetable.id}</td>
                                 <td>{vegetable.name}</td>

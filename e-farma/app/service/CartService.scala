@@ -20,9 +20,7 @@ class CartService @Inject()(userService: UsersService, buyService: BuyService, u
   }
 
   def getCart(userId: Int) : Future[Iterable[CartItem]] = {
-    if (!listUsersProducts.contains(userId)){
-     listUsersProducts = listUsersProducts.updated(userId, Map())
-    }
+    checkUserIdInListUsersProducts(userId)
     Future { listUsersProducts(userId).values }
   }
 
@@ -50,9 +48,7 @@ class CartService @Inject()(userService: UsersService, buyService: BuyService, u
   }
 
   def getStatusOrder(userId: Int) : Future[Iterable[CartItem]] = {
-    if (!listUsersProducts.contains(userId)){
-      listUsersProducts = listUsersProducts.updated(userId, Map())
-    }
+   checkUserIdInListUsersProducts(userId)
     Future { listUsersProducts(userId).values }
   }
 
@@ -60,6 +56,14 @@ class CartService @Inject()(userService: UsersService, buyService: BuyService, u
     buyService.modifyTables(listUsersProducts(userId))
     listUsersProducts = listUsersProducts.removed(userId)
     "You buy this products"
+  }
+
+  def checkUserIdInListUsersProducts(userId: Int): Boolean = {
+    if (!listUsersProducts.contains(userId)){
+      listUsersProducts = listUsersProducts.updated(userId, Map())
+      false
+    }
+    true
   }
 
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import {Header} from "./Header";
 import axios from "axios";
 import {useForm} from "react-hook-form";
-import {common} from "./Common";
+import {Common} from "./Common";
 
 const Login = () => {
     const { register, handleSubmit } = useForm();
@@ -15,7 +15,7 @@ const Login = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            url: common.URL + '/signIn',
+            url: Common.URL + '/signIn',
             data: {
                 email: data.email,
                 password: data.password,
@@ -28,7 +28,7 @@ const Login = () => {
     }
 
     function authenticateGoogle() {
-        window.open(common.URL + "/authenticate/google");
+        window.open(Common.URL + "/authenticate/google");
         setTimeout (window.close, 5000);
     }
 

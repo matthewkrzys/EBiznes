@@ -1,7 +1,4 @@
 .App {
-  /*text-align: center;*/
-
-  background: -webkit-linear-gradient(to right, #a8f64f, #21d732, #079609);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #a8f64f, #21d732, #079609); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
@@ -57,7 +54,6 @@ body {
 }
 
 .content {
-  background: -webkit-linear-gradient(to right, #00b517, #00b517, #00b517);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #00b517, #00b517, #00b517); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   height: 100%;
 

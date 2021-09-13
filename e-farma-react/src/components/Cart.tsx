@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import axios from "axios";
 import {Header} from "./Header";
 import {Footer} from "./Footer";
-import {common} from "./Common";
+import {Common} from "./Common";
 
 
 interface InterfaceCart {
@@ -22,9 +22,9 @@ const Cart = () => {
     );
 
     React.useEffect(() => {
-        console.log(common.ID)
+        console.log(Common.ID)
         axios
-            .get<InterfaceCart[]>(common.URL + '/api/cart/status/'+common.ID, {
+            .get<InterfaceCart[]>(Common.URL + '/api/cart/status/'+Common.ID, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -47,9 +47,9 @@ const Cart = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                url: common.URL + '/api/cart/delete',
+                url: Common.URL + '/api/cart/delete',
                 data: {
-                    userId: common.ID,
+                    userId: Common.ID,
                     productId: cart.productId,
                     tableName: cart.tableName,
                     quantity: cart.quantity
@@ -64,9 +64,9 @@ const Cart = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                url: common.URL + '/api/cart/add',
+                url: Common.URL + '/api/cart/add',
                 data: {
-                    userId: common.ID,
+                    userId: Common.ID,
                     productId: cart.productId,
                     tableName: cart.tableName,
                     quantity: cart.quantity + 1
@@ -81,9 +81,9 @@ const Cart = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                url: common.URL + '/api/cart/add',
+                url: Common.URL + '/api/cart/add',
                 data: {
-                    userId: common.ID,
+                    userId: Common.ID,
                     productId: cart.productId,
                     tableName: cart.tableName,
                     quantity: cart.quantity - 1

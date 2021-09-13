@@ -16,7 +16,7 @@ const defaultTools: InterfaceTools[] = [];
 
 const Tools = () => {
 
-    const [tools, setTools]: [InterfaceTools[], (posts: InterfaceTools[]) => void] = useState(
+    const [toolsItems, setToolsItems]: [InterfaceTools[], (posts: InterfaceTools[]) => void] = useState(
         defaultTools
     );
 
@@ -29,7 +29,7 @@ const Tools = () => {
                 timeout: 10000,
             })
             .then((response) => {
-                setTools(response.data);
+                setToolsItems(response.data);
                 console.log(response)
             })
             .catch((ex) => {
@@ -52,7 +52,7 @@ const Tools = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {tools.map((tool) => (
+                        {toolsItems.map((tool) => (
                             <tr key={tool.id}>
                                 <td>{tool.id}</td>
                                 <td>{tool.name}</td>

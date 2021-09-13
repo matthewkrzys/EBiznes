@@ -17,15 +17,9 @@ const defaultFlower: InterfaceFlowers[] = [];
 
 const Flowers = () => {
 
-    const [flowers, setFlowers]: [InterfaceFlowers[], (posts: InterfaceFlowers[]) => void] = useState(
+    const [flowersItems, setFlowersItems]: [InterfaceFlowers[], (posts: InterfaceFlowers[]) => void] = useState(
         defaultFlower
     );
-
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    let list: number[] = new Array(flowers.length+1);
-    for (let i = 0; i < list.length; i++) {
-        list[i] = 1;
-    }
 
     React.useEffect(() => {
         axios
@@ -36,7 +30,7 @@ const Flowers = () => {
                 timeout: 10000,
             })
             .then((response) => {
-                setFlowers(response.data);
+                setFlowersItems(response.data);
                 console.log(response)
             })
             .catch((ex) => {
@@ -60,7 +54,7 @@ const Flowers = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {flowers.map((flower) => (
+                        {flowersItems.map((flower) => (
                             <tr key={flower.id}>
                                 <td>{flower.id}</td>
                                 <td>{flower.name}</td>
