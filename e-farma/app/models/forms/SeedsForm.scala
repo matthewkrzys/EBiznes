@@ -9,7 +9,7 @@ object SeedsForm {
     mapping(
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "weight" -> nonEmptyText,
+      "weight" -> of(doubleFormat),
       "price" -> of(doubleFormat),
       "descriptions" -> nonEmptyText
     )(SeedsFormData.apply)(SeedsFormData.unapply)
@@ -20,14 +20,14 @@ object SeedsForm {
       "id" -> longNumber,
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "weight" -> nonEmptyText,
+      "weight" -> of(doubleFormat),
       "price" -> of(doubleFormat),
       "descriptions" -> nonEmptyText
     )(SeedsUpdateFormData.apply)(SeedsUpdateFormData.unapply)
   )
 }
 
-case class SeedsFormData(name: String, quantity: Int, weight: String, price: Double, description: String)
-case class SeedsUpdateFormData(id: Long, name: String, quantity: Int, weight: String, price: Double, description: String)
+case class SeedsFormData(name: String, quantity: Int, weight: Double, price: Double, description: String)
+case class SeedsUpdateFormData(id: Long, name: String, quantity: Int, weight: Double, price: Double, description: String)
 
 

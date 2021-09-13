@@ -9,7 +9,7 @@ object FruitsForm {
     mapping(
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "weight" -> nonEmptyText,
+      "weight" -> of(doubleFormat),
       "price" -> of(doubleFormat)
     )(FruitsFormData.apply)(FruitsFormData.unapply)
   )
@@ -19,12 +19,12 @@ object FruitsForm {
       "id" -> longNumber,
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "weight" -> nonEmptyText,
+      "weight" -> of(doubleFormat),
       "price" -> of(doubleFormat)
     )(FruitsUpdateFormData.apply)(FruitsUpdateFormData.unapply)
   )
 }
 
-case class FruitsFormData(name: String, quantity: Int, weight: String, price: Double)
-case class FruitsUpdateFormData(id: Long, name: String, quantity: Int, weight: String, price: Double)
+case class FruitsFormData(name: String, quantity: Int, weight: Double, price: Double)
+case class FruitsUpdateFormData(id: Long, name: String, quantity: Int, weight: Double, price: Double)
 

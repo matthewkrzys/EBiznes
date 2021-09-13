@@ -59,7 +59,7 @@ const Preserves = () => {
                                 <td>{preserve.id}</td>
                                 <td>{preserve.name}</td>
                                 <td>{preserve.quantity}</td>
-                                <td>{preserve.weight}</td>
+                                <td>{preserve.weight} kg</td>
                                 <td>{preserve.price}</td>
                                 <td>{preserve.description}</td>
                                 <td>{addToCart(preserve.id, preserve.name, "Preserve")}</td>

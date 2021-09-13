@@ -55,7 +55,7 @@ class CartService @Inject()(userService: UsersService, buyService: BuyService, u
   def getBuy(userId: Int): String = {
     buyService.modifyTables(listUsersProducts(userId))
     listUsersProducts = listUsersProducts.removed(userId)
-    "You buy this products"
+    "You bought this products"
   }
 
   def checkUserIdInListUsersProducts(userId: Int): Boolean = {

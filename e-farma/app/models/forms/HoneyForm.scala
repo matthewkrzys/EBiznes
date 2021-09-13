@@ -9,7 +9,7 @@ object HoneyForm {
     mapping(
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "weight" -> nonEmptyText,
+      "weight" -> of(doubleFormat),
       "price" -> of(doubleFormat)
     )(HoneyFormData.apply)(HoneyFormData.unapply)
   )
@@ -19,12 +19,12 @@ object HoneyForm {
       "id" -> longNumber,
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "weight" -> nonEmptyText,
+      "weight" -> of(doubleFormat),
       "price" -> of(doubleFormat)
     )(HoneyUpdateFormData.apply)(HoneyUpdateFormData.unapply)
   )
 }
 
-case class HoneyFormData(name: String, quantity: Int, weight: String, price: Double)
-case class HoneyUpdateFormData(id: Long, name: String, quantity: Int, weight: String, price: Double)
+case class HoneyFormData(name: String, quantity: Int, weight: Double, price: Double)
+case class HoneyUpdateFormData(id: Long, name: String, quantity: Int, weight: Double, price: Double)
 

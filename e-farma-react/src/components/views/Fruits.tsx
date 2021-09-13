@@ -56,7 +56,7 @@ const Fruits = () => {
                                 <td>{fruit.id}</td>
                                 <td>{fruit.name}</td>
                                 <td>{fruit.quantity}</td>
-                                <td>{fruit.weight}</td>
+                                <td>{fruit.weight}  kg</td>
                                 <td>{fruit.price}</td>
                                 <td>{addToCart(fruit.id, fruit.name, "Fruit")}</td>
                             </tr>

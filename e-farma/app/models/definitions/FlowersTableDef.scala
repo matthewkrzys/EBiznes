@@ -8,7 +8,7 @@ class FlowersTableDef(tag: Tag) extends Table[Flowers](tag, "flowers") {
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
   def name = column[String]("name")
   def quantity = column[Int]("quantity")
-  def species = column[String]("species")
+  def species = column[Double]("species")
   def price = column[Double]("price")
   def description = column[String]("description")
 

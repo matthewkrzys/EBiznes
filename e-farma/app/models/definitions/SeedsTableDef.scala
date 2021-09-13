@@ -8,7 +8,7 @@ class SeedsTableDef(tag: Tag) extends Table[Seeds](tag, "seeds") {
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
   def name = column[String]("name")
   def quantity = column[Int]("quantity")
-  def weight = column[String]("weight")
+  def weight = column[Double]("weight")
   def price = column[Double]("price")
   def description = column[String]("description")
 

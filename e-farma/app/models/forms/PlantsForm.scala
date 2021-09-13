@@ -9,7 +9,7 @@ object PlantsForm {
     mapping(
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "species" -> nonEmptyText,
+      "species" -> of(doubleFormat),
       "price" -> of(doubleFormat),
       "descriptions" -> nonEmptyText
     )(PlantsFormData.apply)(PlantsFormData.unapply)
@@ -20,14 +20,14 @@ object PlantsForm {
       "id" -> longNumber,
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "species" -> nonEmptyText,
+      "species" -> of(doubleFormat),
       "price" -> of(doubleFormat),
       "descriptions" -> nonEmptyText
     )(PlantsUpdateFormData.apply)(PlantsUpdateFormData.unapply)
   )
 }
 
-case class PlantsFormData(name: String, quantity: Int, species: String, price: Double, description: String)
-case class PlantsUpdateFormData(id: Long, name: String, quantity: Int, species: String, price: Double, description: String)
+case class PlantsFormData(name: String, quantity: Int, species: Double, price: Double, description: String)
+case class PlantsUpdateFormData(id: Long, name: String, quantity: Int, species: Double, price: Double, description: String)
 
 

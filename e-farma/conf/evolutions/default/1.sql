@@ -42,7 +42,7 @@ CREATE TABLE Fruits
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
     "quantity" INTEGER,
-    "weight"  VARCHAR(45) not NULL,
+    "weight"  DOUBLE,
     "price"   DOUBLE
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE Honeys
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
     "quantity" INTEGER,
-    "weight"  VARCHAR(45) not NULL,
+    "weight"  DOUBLE,
     "price"   DOUBLE
 );
 
@@ -60,7 +60,7 @@ CREATE TABLE Vegetables
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
     "quantity" INTEGER,
-    "weight"  VARCHAR(45) not NULL,
+    "weight"  DOUBLE,
     "price"   DOUBLE
 );
 
@@ -69,7 +69,7 @@ CREATE TABLE Seeds
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
     "quantity" INTEGER,
-    "weight"  VARCHAR(45) not NULL,
+    "weight"  DOUBLE,
     "price"   DOUBLE,
     "description" VARCHAR(200) not NULL
 );
@@ -79,7 +79,7 @@ CREATE TABLE Preserves
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
     "quantity" INTEGER,
-    "weight"  VARCHAR(45) not NULL,
+    "weight"  DOUBLE,
     "price"   DOUBLE,
     "description" VARCHAR(200) not NULL
 );
@@ -89,7 +89,7 @@ CREATE TABLE Flowers
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
     "quantity" INTEGER,
-    "species"  VARCHAR(45) not NULL,
+    "species"  DOUBLE,
     "price"   DOUBLE,
     "description" VARCHAR(200) not NULL
 );
@@ -99,7 +99,7 @@ CREATE TABLE Plants
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
     "quantity" INTEGER,
-    "species"  VARCHAR(45) not NULL,
+    "species"  DOUBLE,
     "price"   DOUBLE,
     "description" VARCHAR(200) not NULL
 );

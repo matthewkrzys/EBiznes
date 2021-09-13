@@ -9,7 +9,7 @@ object PreservesForm {
     mapping(
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "weight" -> nonEmptyText,
+      "weight" -> of(doubleFormat),
       "price" -> of(doubleFormat),
       "descriptions" -> nonEmptyText
     )(PreservesFormData.apply)(PreservesFormData.unapply)
@@ -20,14 +20,14 @@ object PreservesForm {
       "id" -> longNumber,
       "name" -> nonEmptyText,
       "quantity" -> number,
-      "weight" -> nonEmptyText,
+      "weight" -> of(doubleFormat),
       "price" -> of(doubleFormat),
       "descriptions" -> nonEmptyText
     )(PreservesUpdateFormData.apply)(PreservesUpdateFormData.unapply)
   )
 }
 
-case class PreservesFormData(name: String, quantity: Int, weight: String, price: Double, description: String)
-case class PreservesUpdateFormData(id: Long, name: String, quantity: Int, weight: String, price: Double, description: String)
+case class PreservesFormData(name: String, quantity: Int, weight: Double, price: Double, description: String)
+case class PreservesUpdateFormData(id: Long, name: String, quantity: Int, weight: Double, price: Double, description: String)
 
 
