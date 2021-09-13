@@ -24,6 +24,7 @@ const Login = () => {
         }).then(result => {
             console.log(result)
             window.location.reload();
+            localStorage.setItem("email", data.email)
         });
     }
 

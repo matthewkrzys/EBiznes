@@ -44,11 +44,10 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
   }
 
   def getStatusOrder(userId: Int):  Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    cartService.getStatusOrder(userId) map (items =>
+    cartService.getCart(userId) map (items =>
       Ok(Json.toJson(items))
       )
   }
-
 
   def getBuy(userId: Int) = Action {
       Ok(cartService.getBuy(userId))

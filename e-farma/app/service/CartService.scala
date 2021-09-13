@@ -47,11 +47,6 @@ class CartService @Inject()(userService: UsersService, buyService: BuyService, u
     "ok"
   }
 
-  def getStatusOrder(userId: Int) : Future[Iterable[CartItem]] = {
-   checkUserIdInListUsersProducts(userId)
-    Future { listUsersProducts(userId).values }
-  }
-
   def getBuy(userId: Int): String = {
     buyService.modifyTables(listUsersProducts(userId))
     listUsersProducts = listUsersProducts.removed(userId)

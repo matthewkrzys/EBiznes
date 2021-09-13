@@ -79,6 +79,7 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
   }
 
   def updateUser = Action.async { implicit request =>
+    println("update")
     UsersForm.updateForm.bindFromRequest.fold(
       errorForm => {
         Future.successful(
@@ -86,6 +87,7 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
         )
       },
       user => {
+        println(" user " + user)
         val userItem = Users(user.id, user.name, user.surname, user.email, user.telephone,
           user.city, user.street, user.buildingNumber, user.apartmentNumber)
         usersService.updateItem(userItem).map { _ =>

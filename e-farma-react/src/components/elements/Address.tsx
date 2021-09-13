@@ -19,8 +19,9 @@ const Address: React.FC = () => {
     const [addressElement, setAddressElement] = useState<InterfaceAddress>();
 
     React.useEffect(() => {
+        console.log(localStorage.getItem("email"))
         axios
-            .get<InterfaceAddress>(Common.URL + '/api/user/email/matthewkrzys10@gmail.com', {
+            .get<InterfaceAddress>(Common.URL + '/api/user/email/'+ localStorage.getItem("email"), {
                 headers: {
                     'Content-Type': 'application/json',
                 },
