@@ -31,8 +31,8 @@ INSERT INTO Vegetables (name, quantity, weight, price) VALUES ('Cukinia', 20, 0.
 
 INSERT INTO Vegetables (name, quantity, weight, price) VALUES ('Marchew', 20, 0.5, 3.00);
 
-INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Ogórki kiszone', 20, 0.5, 6.00, 'rok produkcji 2020');
+INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Ogórki kiszone', 20, 0.5, 6.00, 'tradycyjne, rok produkcji 2020');
 
-INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Ogórki konserwowe', 20, 0.5, 7.00, 'rok produkcji 2020');
+INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Ogórki konserwowe', 20, 0.5, 7.00, 'z czosnkiem, rok produkcji 2020');
 
-INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Kapusta kiszona', 20, 0.5, 8.00, 'rok produkcji 2020');
+INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Kapusta kiszona', 20, 0.5, 8.00, 'z papryką, rok produkcji 2020');

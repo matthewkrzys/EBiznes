@@ -33,13 +33,13 @@ INSERT INTO Vegetables (name, quantity, weight, price) VALUES ('Marchew', 20, 1,
 
 INSERT INTO Vegetables (name, quantity, weight, price) VALUES ('Cebula', 20, 1, 5.00);
 
-INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Ogórki konserwowe', 20, 1, 12.00, 'rok produkcji 2020');
+INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Ogórki konserwowe', 20, 1, 12.00, 'z czosnkiem, rok produkcji 2020');
 
-INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Kapusta kiszona', 20, 1, 10.00, 'rok produkcji 2020');
+INSERT INTO Preserves (name, quantity, weight, price, description) VALUES ('Kapusta kiszona', 20, 1, 10.00, 'z papryką, rok produkcji 2020');
 
 INSERT INTO Flowers (name, quantity, species, price, description) VALUES ('Róże', 20, 1, 8.00, 'data ścięcia: 2021.07.25');
 
-INSERT INTO Flowers (name, quantity, species, price, description) VALUES ('Goździki', 20, 1, 6.00, 'data ścięcia: 2021.07.25');
+INSERT INTO Flowers (name, quantity, species, price, description) VALUES ('Goździki', 20, 1, 6.00, 'data ścięcia: 2021.07.26');
 
 INSERT INTO Flowers (name, quantity, species, price, description) VALUES ('Fikus', 20, 1, 23.00, 'kwiat doniczkowy');
 
@@ -55,14 +55,14 @@ INSERT INTO Tools (name, quantity, price, description) VALUES ('Łopata', 20, 19
 
 
 
-INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Jabłoń', 20, 1, 15.00, 'sadzonka doniczkowa');
+INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Jabłoń', 20, 1, 15.00, 'papierówka, sadzonka doniczkowa');
 
-INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Wiśnia', 20, 1, 17.00, 'sadzonka doniczkowa');
+INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Wiśnia', 20, 1, 17.00, 'ukraińska, sadzonka doniczkowa');
 
-INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Śliwka', 20, 1, 13.00, 'sadzonka doniczkowa');
+INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Śliwka', 20, 1, 13.00, 'węgierka, sadzonka doniczkowa');
 
-INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Porzeczka', 20, 1, 8.00, 'sadzonka doniczkowa');
+INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Porzeczka', 20, 1, 8.00, 'czerwone, sadzonka doniczkowa');
 
-INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Malina', 20, 1, 2.00, 'sadzonka doniczkowa');
+INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Malina', 20, 1, 2.00, 'późna, sadzonka doniczkowa');
 
-INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Pomidor', 20, 1, 2.00, 'sadzonka doniczkowa');
+INSERT INTO Plants (name, quantity, species, price, description) VALUES ('Pomidor', 20, 1, 2.00, 'malinowy, sadzonka doniczkowa');
