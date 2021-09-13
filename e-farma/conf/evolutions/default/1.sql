@@ -119,7 +119,6 @@ CREATE TABLE Users
     "id"      INTEGER     NOT NULL PRIMARY KEY AUTOINCREMENT,
     "name"    VARCHAR(45) not NULL,
     "surname" VARCHAR(45) not NULL,
-    "password"   VARCHAR(45) not NULL,
     "email"   VARCHAR(100) not NULL unique ,
     "telephone"   VARCHAR(20) not NULL,
     "city"   VARCHAR(200) not NULL,

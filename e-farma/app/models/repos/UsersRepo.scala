@@ -38,8 +38,8 @@ class UsersRepo @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
   def update(usersItem: Users): Future[Int] = {
     dbConfig.db
       .run(usersList.filter(_.id === usersItem.id)
-        .map(x => (x.name, x.surname, x.password))
-        .update(usersItem.name, usersItem.surname, usersItem.password)
+        .map(x => (x.name, x.surname))
+        .update(usersItem.name, usersItem.surname)
       )
   }
 

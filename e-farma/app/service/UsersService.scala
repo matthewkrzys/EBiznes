@@ -8,6 +8,11 @@ import scala.concurrent.Future
 
 class UsersService @Inject()(items: UsersRepo) {
 
+
+  def getItemByEmail(email: String): Future[Option[Users]] = {
+    items.get(email)
+  }
+
   def addItem(item: Users): Future[String] = {
     items.add(item)
   }

@@ -17,12 +17,10 @@ class SignUpController @Inject()(components: DefaultSilhouetteControllerComponen
 
   def signUp: Action[AnyContent] = unsecuredAction.async { implicit request: Request[AnyContent] =>
     val json = request.body.asJson.get
-    println("jest")
-    println(json)
     val signUpRequest = json.as[SignUpRequest]
     val loginInfo = LoginInfo(CredentialsProvider.ID, signUpRequest.email)
 
-    val response = userRepository.retrieve(loginInfo).flatMap {
+    userRepository.retrieve(loginInfo).flatMap {
       case Some(_) =>
         Future.successful(Forbidden("User already exists"))
       case None =>
@@ -32,7 +30,6 @@ class SignUpController @Inject()(components: DefaultSilhouetteControllerComponen
           signUpRequest.email,
           signUpRequest.email
         ).flatMap { user =>
-          println(user)
           authInfoRepository.add(loginInfo, authInfo)
             .map(_ => user)
         }.flatMap { user =>
@@ -41,7 +38,7 @@ class SignUpController @Inject()(components: DefaultSilhouetteControllerComponen
         }.flatMap { user =>
           usersRepo.add(
             Users(user.id, signUpRequest.name,
-              signUpRequest.surname, signUpRequest.password, signUpRequest.email, signUpRequest.telephone, signUpRequest.city,
+              signUpRequest.surname, signUpRequest.email, signUpRequest.telephone, signUpRequest.city,
               signUpRequest.street, signUpRequest.buildingNumber, signUpRequest.apartmentNumber))
         }.map { user =>
           Json.toJson(user)
@@ -49,6 +46,5 @@ class SignUpController @Inject()(components: DefaultSilhouetteControllerComponen
           Created(json)
         }
     }
-    response
   }
 }

@@ -65,7 +65,7 @@ const Fruits = () => {
                                 <td>{fruit.quantity}</td>
                                 <td>{fruit.weight}</td>
                                 <td>{fruit.price}</td>
-                                <td>{addToCart(fruit.id, "Fruit")}</td>
+                                <td>{addToCart(fruit.id, fruit.name, "Fruit")}</td>
                             </tr>
                         ))}
                         </tbody>

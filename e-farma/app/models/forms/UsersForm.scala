@@ -8,7 +8,6 @@ object UsersForm {
     mapping(
       "name" -> nonEmptyText,
       "surname" -> nonEmptyText,
-      "password" -> nonEmptyText,
       "email" -> nonEmptyText,
       "telephone" -> nonEmptyText,
       "city" -> nonEmptyText,
@@ -23,7 +22,6 @@ object UsersForm {
       "id" -> longNumber,
       "name" -> nonEmptyText,
       "surname" -> nonEmptyText,
-      "password" -> nonEmptyText,
       "email" -> nonEmptyText,
       "telephone" -> nonEmptyText,
       "city" -> nonEmptyText,
@@ -34,8 +32,8 @@ object UsersForm {
   )
 }
 
-case class UsersFormData(name: String, surname: String, password: String, email: String, telephone: String,
+case class UsersFormData(name: String, surname: String, email: String, telephone: String,
                          city: String, street: String, buildingNumber: String, apartmentNumber: String)
-case class UsersUpdateFormData(id: Long, name: String, surname: String, password: String, email: String, telephone: String,
+case class UsersUpdateFormData(id: Long, name: String, surname: String, email: String, telephone: String,
                                city: String, street: String, buildingNumber: String, apartmentNumber: String)
 

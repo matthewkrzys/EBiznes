@@ -69,7 +69,7 @@ const Seeds = () => {
                                 <td>{seed.weight}</td>
                                 <td>{seed.price}</td>
                                 <td>{seed.description}</td>
-                                <td>{addToCart(seed.id, "Seeds")}</td>
+                                <td>{addToCart(seed.id, seed.name, "Seeds")}</td>
                             </tr>
                         ))}
                         </tbody>

@@ -11,13 +11,12 @@ import Home from './Home';
 import SignOut from "./SignOut";
 import StatusOrder from "./StatusOrder";
 import Buy from "./Buy";
+import ChangeAddress from "./elements/ChangeAddress";
 
 function Content() {
 
     return <div className="content">
-        {/*<Login/>*/}
         {contentElement()}
-        {/*{localStorage.getItem("token") ? contentElement() : <Login/>}*/}
     </div>
 
     function contentElement() {
@@ -29,6 +28,7 @@ function Content() {
             <Route exact path="/products" component={Products}/>
             <Route exact path="/cart" component={Cart}/>
             <Route exact path="/statusOrder" component={StatusOrder}/>
+            <Route exact path="/changeAddress" component={ChangeAddress}/>
             <Route exact path="/buy" component={Buy}/>
         </BrowserRouter>
     }

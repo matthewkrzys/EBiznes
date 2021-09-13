@@ -8,6 +8,7 @@ object CartFrom {
     mapping(
       "userId" -> number,
       "productId" -> number,
+      "productName" -> nonEmptyText,
       "tableName" -> nonEmptyText,
       "quantity" -> number
     )(CartFormData.apply)(CartFormData.unapply)
@@ -19,10 +20,11 @@ object DeleteForm {
     mapping(
       "userId" -> number,
       "productId" -> number,
+      "productName" -> nonEmptyText,
       "tableName" -> nonEmptyText,
       "quantity" -> number
     )(CartFormData.apply)(CartFormData.unapply)
   )
 }
 
-case class CartFormData(userId: Int, productId: Int, tableName: String, quantity: Int)
+case class CartFormData(userId: Int, productId: Int, productName: String, tableName: String, quantity: Int)

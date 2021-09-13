@@ -8,7 +8,6 @@ class UsersTableDef(tag: Tag) extends Table[Users](tag, "users") {
   def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
   def name = column[String]("name")
   def surname = column[String]("surname")
-  def password = column[String]("password")
   def email = column[String]("email")
   def telephone = column[String]("telephone")
   def city = column[String]("city")
@@ -16,6 +15,6 @@ class UsersTableDef(tag: Tag) extends Table[Users](tag, "users") {
   def buildingNumber = column[String]("buildingNumber")
   def apartmentNumber = column[String]("apartmentNumber")
 
-  override def * = (id, name, surname, password, email, telephone, city, street,
+  override def * = (id, name, surname, email, telephone, city, street,
     buildingNumber, apartmentNumber) <> ((Users.apply _).tupled, Users.unapply)
 }

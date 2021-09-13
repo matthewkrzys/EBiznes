@@ -69,7 +69,7 @@ const Plants = () => {
                                 <td>{plant.species}</td>
                                 <td>{plant.price}</td>
                                 <td>{plant.description}</td>
-                                <td>{addToCart(plant.id, "Plants")}</td>
+                                <td>{addToCart(plant.id, plant.name,"Plants")}</td>
                             </tr>
                         ))}
                         </tbody>

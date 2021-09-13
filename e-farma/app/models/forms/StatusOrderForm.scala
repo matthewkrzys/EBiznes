@@ -10,9 +10,18 @@ object StatusOrderForm {
       "productId" -> number,
       "tableName" -> nonEmptyText,
       "quantity" -> number,
-      "adderess" -> nonEmptyText
+        "name"-> nonEmptyText,
+      "surname"-> nonEmptyText,
+      "email"-> nonEmptyText,
+      "telephone"-> nonEmptyText,
+      "city"-> nonEmptyText,
+      "street"-> nonEmptyText,
+      "buildingNumber"-> nonEmptyText,
+      "apartmentNumber"-> nonEmptyText
     )(StatusOrderFormData.apply)(StatusOrderFormData.unapply)
   )
 }
 
-case class StatusOrderFormData(userId: Int, productId: Int, tableName: String, quantity: Int, address: String)
+case class StatusOrderFormData(userId: Int, productId: Int, tableName: String, quantity: Int,
+                               name: String, surname: String, email:String, telephone: String,
+                               city: String, street: String, buildingNumber: String, apartmentNumber: String)

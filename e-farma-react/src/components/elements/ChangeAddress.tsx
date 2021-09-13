@@ -1,9 +1,9 @@
 import React  from 'react';
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import {common} from "./Common";
+import {common} from "../Common";
 
-function SignUp() {
+function ChangeAddress() {
     const { register, handleSubmit } = useForm();
 
     function onSubmit(data: any) {
@@ -11,26 +11,28 @@ function SignUp() {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
             },
-            url: common.URL + '/signUp',
+            url: common.URL + '/api/user/update ',
             data: {
+                id: common.ID,
                 name: data.name,
                 surname: data.surname,
                 email: data.email,
-                password: data.password,
                 telephone: data.telephone,
                 city: data.city,
                 street: data.street,
                 buildingNumber: data.buildingNumber,
                 apartmentNumber: data.apartmentNumber
-            }
+            },
+            withCredentials: true
         });
-
+        window.location.href = "/statusOrder"
 
     }
 
     return (
-        <div className="signUp">
+        <div className="changeAddress">
             <a href="/">Home</a>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
@@ -42,12 +44,6 @@ function SignUp() {
                     <label htmlFor="Surname">Surname</label>
                     <input {...register("surname")} />
                 </div>
-
-                <div>
-                    <label htmlFor="password">Password</label>
-                    <input {...register("password")} />
-                </div>
-
                 <div>
                     <label htmlFor="email">Email</label>
                     <input
@@ -88,4 +84,4 @@ function SignUp() {
 
 }
 
-export default SignUp;
+export default ChangeAddress;

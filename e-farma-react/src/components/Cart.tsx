@@ -2,12 +2,13 @@ import React, {useState} from 'react';
 import axios from "axios";
 import {Header} from "./Header";
 import {Footer} from "./Footer";
-import {common} from "./common";
+import {common} from "./Common";
 
 
 interface InterfaceCart {
     userId: number;
     productId: number;
+    productName: string;
     tableName: string;
     quantity: number;
 }
@@ -16,7 +17,7 @@ const defaultCart: InterfaceCart[] = [];
 
 const Cart = () => {
 
-    const [Cart, setCart]: [InterfaceCart[], (posts: InterfaceCart[]) => void] = useState(
+    const [CartItem, setCart]: [InterfaceCart[], (posts: InterfaceCart[]) => void] = useState(
         defaultCart
     );
 
@@ -120,7 +121,7 @@ const Cart = () => {
                             </tr>
                             </thead>
                             <tbody>
-                            {Cart.map((cart) => (
+                            {CartItem.map((cart) => (
                                 <tr>
                                     <td>{cart.tableName}</td>
                                     <td>{cart.productName}</td>

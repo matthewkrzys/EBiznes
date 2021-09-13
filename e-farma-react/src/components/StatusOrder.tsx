@@ -2,11 +2,13 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import {Header} from "./Header";
 import {Footer} from "./Footer";
-import {common} from "./common";
+import {common} from "./Common";
+import Address from "./elements/Address";
 
 interface InterfaceStatusOrder {
     userId: number;
     productId: number;
+    productName: string;
     tableName: string;
     quantity: number;
 }
@@ -44,46 +46,23 @@ const StatusOrder = () => {
                         <table>
                             <thead>
                             <tr>
-                                <th>userId</th>
-                                <th>productId</th>
-                                <th>tableName</th>
+                                <th>category</th>
+                                <th>productName</th>
                                 <th>quantity</th>
                             </tr>
                             </thead>
                             <tbody>
                             {statusOrder.map((element) => (
                                 <tr>
-                                    <td>{element.userId}</td>
-                                    <td>{element.productId}</td>
                                     <td>{element.tableName}</td>
+                                    <td>{element.productName}</td>
                                     <td>{element.quantity}</td>
                                 </tr>
                             ))}
                             </tbody>
                         </table>
                     </div>
-                    <div>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>userId</th>
-                                <th>productId</th>
-                                <th>tableName</th>
-                                <th>quantity</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {statusOrder.map((element) => (
-                                <tr>
-                                    <td>{element.userId}</td>
-                                    <td>{element.productId}</td>
-                                    <td>{element.tableName}</td>
-                                    <td>{element.quantity}</td>
-                                </tr>
-                            ))}
-                            </tbody>
-                        </table>
-                    </div>
+                    <Address/>
                     <br/>
                     <a href="/buy">
                         <button>Buy</button>

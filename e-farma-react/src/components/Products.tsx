@@ -16,12 +16,6 @@ import {Header} from "./Header";
 
 export class Products extends Component {
 
-    componentWillMount() {
-    }
-
-    componentDidMount() {
-    }
-
     render() {
         return <div className="App">
         <HashRouter>

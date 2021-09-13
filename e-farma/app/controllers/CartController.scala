@@ -19,7 +19,7 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
         BadRequest(formWithErrors.errors.toString)
       },
       formData => {
-        val newCartElement = CartItem(formData.userId, formData.productId, formData.tableName, formData.quantity)
+        val newCartElement = CartItem(formData.userId, formData.productId, formData.productName, formData.tableName, formData.quantity)
         Ok(cartService.addElementToCart(newCartElement))
       }
     )
@@ -31,7 +31,7 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
         BadRequest(formWithErrors.errors.toString)
       },
       formData => {
-        val newCartElement = CartItem(formData.userId, formData.productId, formData.tableName, formData.quantity)
+        val newCartElement = CartItem(formData.userId, formData.productId, formData.productName, formData.tableName, formData.quantity)
         Ok(cartService.deleteElement(newCartElement))
       }
     )

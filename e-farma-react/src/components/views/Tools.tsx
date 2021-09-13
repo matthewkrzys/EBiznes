@@ -59,7 +59,7 @@ const Tools = () => {
                                 <td>{tool.quantity}</td>
                                 <td>{tool.price}</td>
                                 <td>{tool.description}</td>
-                                <td>{addToCart(tool.id, "Tools")}</td>
+                                <td>{addToCart(tool.id, tool.name, "Tools")}</td>
                             </tr>
                         ))}
                         </tbody>

@@ -1,10 +1,10 @@
 import axios from "axios";
 import React from "react";
-import {common} from "../common";
+import {common} from "../Common";
 
-const addToCart = (id: number, tableName: string) => {
+const addToCart = (id: number, name: string, tableName: string) => {
 
-    function sendRequest(param: any, tableName: string) {
+    function sendRequest(param: any) {
         console.log("send")
         axios({
             method: 'post',
@@ -15,6 +15,7 @@ const addToCart = (id: number, tableName: string) => {
             data: {
                 userId: common.ID,
                 productId: param,
+                productName: name,
                 tableName: tableName,
                 quantity: 1
             }
@@ -23,7 +24,7 @@ const addToCart = (id: number, tableName: string) => {
 
 
     return <div>
-        <button type="button" onClick={() => sendRequest(id, tableName)}> Add to cart
+        <button type="button" onClick={() => sendRequest(id)}> Add to cart
         </button>
     </div>
 

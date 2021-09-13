@@ -27,20 +27,15 @@ class SignInController @Inject()(scc: DefaultSilhouetteControllerComponents, add
       .flatMap { loginInfo =>
         userRepository.retrieve(loginInfo).flatMap {
           case Some(user) =>
-            println(loginInfo)
-            println(" user " + user)
             var password: String = ""
             passwordInfoRepository.find(loginInfo).onComplete {
               case Success(value) => password = value.get.password
               case Failure(e) => e.printStackTrace
             }
-
-            val x = authenticateUser(user)
+            authenticateUser(user)
               .map(_.withCookies(Cookie(name, value, httpOnly = false))
                 .withCookies(Cookie("Auth", password, httpOnly = false))
                 .withCookies(Cookie("Id", user.id.toString, httpOnly = false)))
-
-            x
           case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
         }
       }

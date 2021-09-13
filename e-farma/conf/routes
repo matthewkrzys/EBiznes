@@ -118,6 +118,7 @@ GET           /view/users/update/:id              controllers.UsersController.up
 GET           /api/users                          controllers.UsersController.getAll()
 GET           /api/user/:id                       controllers.UsersController.getById(id: Long)
 GET           /api/user/name/:name                controllers.UsersController.getByNameUserView(name: String)
+GET           /api/user/email/:email              controllers.UsersController.getByEmail(email: String)
 POST          /api/user/add                       controllers.UsersController.add()
 POST          /api/user/update                    controllers.UsersController.updateUser
 DELETE        /api/user/delete/:id                controllers.UsersController.delete(id: Long)
@@ -145,8 +146,10 @@ GET           /api/cart/statusOrder/:userId                    controllers.CartC
 GET           /api/cart/buy/:userId                    controllers.CartController.getBuy(userId: Int)
 
 # Authentication
++nocsrf
 POST        /signUp                                   controllers.SignUpController.signUp
-#+nocsrf
++nocsrf
 POST        /signIn                                   controllers.SignInController.signIn
++nocsrf
 POST        /signOut                                  controllers.SignInController.signOut
 GET         /authenticate/:provider        controllers.SocialAuthController.authenticate(provider: String)

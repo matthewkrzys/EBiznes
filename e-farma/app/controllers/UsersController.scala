@@ -31,6 +31,13 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
     }
   }
 
+
+  def getByEmail(email: String): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    usersService.getItemByEmail(email) map { item =>
+      Ok(Json.toJson(item))
+    }
+  }
+
   def getByIdUserView(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     val user = usersService.getItem(id)
     var history: Seq[History] = Seq[History]()
@@ -48,7 +55,7 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
         Future.successful(BadRequest("Error!"))
       },
       data => {
-        val newUserItem = Users(0, data.name, data.surname, data.password, data.email, data.telephone, data.city, data.street, data.buildingNumber, data.apartmentNumber)
+        val newUserItem = Users(0, data.name, data.surname, data.email, data.telephone, data.city, data.street, data.buildingNumber, data.apartmentNumber)
         usersService.addItem(newUserItem).map(_ => Redirect(routes.UsersController.getAll()))
       })
   }
@@ -62,7 +69,7 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
         )
       },
       user => {
-        usersService.addItem(Users(0, user.name, user.surname, user.password, user.email, user.telephone,
+        usersService.addItem(Users(0, user.name, user.surname, user.email, user.telephone,
           user.city, user.street, user.buildingNumber, user.apartmentNumber)).map { _ =>
           Redirect(routes.UsersController.add())
         }
@@ -79,7 +86,7 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
         )
       },
       user => {
-        val userItem = Users(user.id, user.name, user.surname, user.password, user.email, user.telephone,
+        val userItem = Users(user.id, user.name, user.surname, user.email, user.telephone,
           user.city, user.street, user.buildingNumber, user.apartmentNumber)
         usersService.updateItem(userItem).map { _ =>
           Redirect(routes.UsersController.getAll())
@@ -93,7 +100,7 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
     val user = usersService.getItem(id)
     user.map(user => {
       val userForm = UsersForm.updateForm.fill(UsersUpdateFormData(user.get.id, user.get.name, user.get.surname,
-        user.get.password, user.get.email, user.get.telephone, user.get.city, user.get.street, user.get.buildingNumber, user.get.apartmentNumber))
+        user.get.email, user.get.telephone, user.get.city, user.get.street, user.get.buildingNumber, user.get.apartmentNumber))
       Ok(views.html.users.updateuser(userForm))
     })
   }
