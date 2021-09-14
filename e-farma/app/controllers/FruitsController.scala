@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.request.Common
 import javax.inject._
 import models.entities.Fruits
 import play.api.mvc._
@@ -11,12 +12,20 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService: FruitsService) extends MessagesAbstractController(cc) {
+class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService: FruitsService, common: Common) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    fruitsService.listAllItems map ( items =>
-      Ok(Json.toJson(items))
-      )
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      fruitsService.listAllItems map (items =>
+        Ok(Json.toJson(items))
+        )
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def getAllFruitsView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -25,8 +34,16 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
   }
 
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    fruitsService.getItem(id) map { item =>
-      Ok(Json.toJson(item))
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      fruitsService.getItem(id) map { item =>
+        Ok(Json.toJson(item))
+      }
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
     }
   }
 
@@ -40,15 +57,23 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    FruitsForm.form.bindFromRequest.fold(
-      errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
-      },
-      data => {
-        val newFruitItem = Fruits(0, data.name, data.quantity, data.weight, data.price)
-        fruitsService.addItem(newFruitItem).map(_ => Redirect(routes.FruitsController.getAll()))
-      })
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      FruitsForm.form.bindFromRequest.fold(
+        errorForm => {
+          errorForm.errors.foreach(println)
+          Future.successful(BadRequest("Error!"))
+        },
+        data => {
+          val newFruitItem = Fruits(0, data.name, data.quantity, data.weight, data.price)
+          fruitsService.addItem(newFruitItem).map(_ => Redirect(routes.FruitsController.getAll()))
+        })
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
 
@@ -70,15 +95,23 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
   }
 
   def updateFruit: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    FruitsForm.updateForm.bindFromRequest.fold(
-      errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
-      },
-      data => {
-        val fruitItem = Fruits(data.id, data.name, data.quantity, data.weight, data.price)
-        fruitsService.updateItem(fruitItem).map(_ => Redirect(routes.FruitsController.getAll()))
-      })
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      FruitsForm.updateForm.bindFromRequest.fold(
+        errorForm => {
+          errorForm.errors.foreach(println)
+          Future.successful(BadRequest("Error!"))
+        },
+        data => {
+          val fruitItem = Fruits(data.id, data.name, data.quantity, data.weight, data.price)
+          fruitsService.updateItem(fruitItem).map(_ => Redirect(routes.FruitsController.getAll()))
+        })
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def updateFruitView(id: Long): Action[AnyContent] = Action.async { implicit request: MessagesRequest[AnyContent] =>
@@ -91,8 +124,16 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
 
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    fruitsService.deleteItem(id) map { res =>
-      Redirect(routes.FruitsController.getAll())
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      fruitsService.deleteItem(id) map { res =>
+        Redirect(routes.FruitsController.getAll())
+      }
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
     }
   }
 }

@@ -26,8 +26,12 @@ const Cart = () => {
         axios
             .get<InterfaceCart[]>(Common.URL + '/api/cart/status/'+Common.ID, {
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Csrf-Token': Common.csrf,
+                    'Authorization': Common.authorization
                 },
+                withCredentials: true,
                 timeout: 10000,
             })
             .then((response) => {
@@ -45,12 +49,17 @@ const Cart = () => {
             axios({
                 method: 'delete',
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Csrf-Token': Common.csrf,
+                    'Authorization': Common.authorization
                 },
+                withCredentials: true,
                 url: Common.URL + '/api/cart/delete',
                 data: {
                     userId: Common.ID,
                     productId: cart.productId,
+                    productName: cart.productName,
                     tableName: cart.tableName,
                     quantity: cart.quantity
                 }
@@ -58,16 +67,21 @@ const Cart = () => {
             window.location.reload()
         }
 
-        function addQantity(cart: InterfaceCart) {
+        function addQuantity(cart: InterfaceCart) {
             axios({
                 method: 'post',
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Csrf-Token': Common.csrf,
+                    'Authorization': Common.authorization
                 },
+                withCredentials: true,
                 url: Common.URL + '/api/cart/add',
                 data: {
                     userId: Common.ID,
                     productId: cart.productId,
+                    productName: cart.productName,
                     tableName: cart.tableName,
                     quantity: cart.quantity + 1
                 }
@@ -75,16 +89,21 @@ const Cart = () => {
             window.location.reload()
         }
 
-        function removeQuaintity(cart: InterfaceCart) {
+        function removeQuantity(cart: InterfaceCart) {
             axios({
                 method: 'post',
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Csrf-Token': Common.csrf,
+                    'Authorization': Common.authorization
                 },
+                withCredentials: true,
                 url: Common.URL + '/api/cart/add',
                 data: {
                     userId: Common.ID,
                     productId: cart.productId,
+                    productName: cart.productName,
                     tableName: cart.tableName,
                     quantity: cart.quantity - 1
                 }
@@ -93,10 +112,10 @@ const Cart = () => {
         }
 
         return <div>
-            <button type="button" onClick={() => removeQuaintity(cartElement)}>
+            <button type="button" onClick={() => removeQuantity(cartElement)}>
                 -
             </button>
-            <button type="button" onClick={() => addQantity(cartElement)}>
+            <button type="button" onClick={() => addQuantity(cartElement)}>
                 +
             </button>
             <button type="button" onClick={() => deleteRequest(cartElement)}>
@@ -122,7 +141,7 @@ const Cart = () => {
                             </thead>
                             <tbody>
                             {CartItem.map((cart) => (
-                                <tr>
+                                <tr key={cart.productId+cart.tableName}>
                                     <td>{cart.tableName}</td>
                                     <td>{cart.productName}</td>
                                     <td>{cart.quantity}</td>

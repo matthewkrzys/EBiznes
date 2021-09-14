@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.request.Common
 import javax.inject._
 import models.entities.Honey
 import play.api.mvc._
@@ -11,12 +12,20 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService: HoneyService) extends MessagesAbstractController(cc) {
+class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService: HoneyService, common: Common) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    honeysService.listAllItems map ( items =>
-      Ok(Json.toJson(items))
-      )
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      honeysService.listAllItems map (items =>
+        Ok(Json.toJson(items))
+        )
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def getAllHoneysView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -25,8 +34,16 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
   }
 
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    honeysService.getItem(id) map { item =>
-      Ok(Json.toJson(item))
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      honeysService.getItem(id) map { item =>
+        Ok(Json.toJson(item))
+      }
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
     }
   }
 
@@ -39,15 +56,23 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    HoneyForm.form.bindFromRequest.fold(
-      errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
-      },
-      data => {
-        val newHoneyItem = Honey(0, data.name, data.quantity, data.weight, data.price)
-        honeysService.addItem(newHoneyItem).map(_ => Redirect(routes.HoneyController.getAll()))
-      })
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      HoneyForm.form.bindFromRequest.fold(
+        errorForm => {
+          errorForm.errors.foreach(println)
+          Future.successful(BadRequest("Error!"))
+        },
+        data => {
+          val newHoneyItem = Honey(0, data.name, data.quantity, data.weight, data.price)
+          honeysService.addItem(newHoneyItem).map(_ => Redirect(routes.HoneyController.getAll()))
+        })
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
 
@@ -69,15 +94,23 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
   }
 
   def updateHoney: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    HoneyForm.updateForm.bindFromRequest.fold(
-      errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
-      },
-      data => {
-        val honeyItem = Honey(data.id, data.name, data.quantity, data.weight, data.price)
-        honeysService.updateItem(honeyItem).map(_ => Redirect(routes.HoneyController.getAll()))
-      })
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      HoneyForm.updateForm.bindFromRequest.fold(
+        errorForm => {
+          errorForm.errors.foreach(println)
+          Future.successful(BadRequest("Error!"))
+        },
+        data => {
+          val honeyItem = Honey(data.id, data.name, data.quantity, data.weight, data.price)
+          honeysService.updateItem(honeyItem).map(_ => Redirect(routes.HoneyController.getAll()))
+        })
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def updateHoneyView(id: Long): Action[AnyContent] = Action.async { implicit request: MessagesRequest[AnyContent] =>
@@ -89,8 +122,16 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    honeysService.deleteItem(id) map { res =>
-      Redirect(routes.HoneyController.getAll())
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      honeysService.deleteItem(id) map { res =>
+        Redirect(routes.HoneyController.getAll())
+      }
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
     }
   }
 }

@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import addToCart from "../elements/AddToCart";
+import {Common} from "../Common";
 
 
 interface InterfaceFlowers {
@@ -22,11 +23,16 @@ const Flowers = () => {
     );
 
     React.useEffect(() => {
+        console.log(Common.authorization)
         axios
             .get<InterfaceFlowers[]>('http://localhost:9000/api/flowers', {
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Csrf-Token': Common.csrf,
+                    'Authorization': Common.authorization
                 },
+                withCredentials: true,
                 timeout: 10000,
             })
             .then((response) => {

@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.request.Common
 import javax.inject._
 import models.entities.Seeds
 import models.forms.{SeedsForm, SeedsUpdateFormData}
@@ -11,12 +12,20 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class SeedsController @Inject()(cc: MessagesControllerComponents, seedsService: SeedsService) extends MessagesAbstractController(cc) {
+class SeedsController @Inject()(cc: MessagesControllerComponents, seedsService: SeedsService, common: Common) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    seedsService.listAllItems map ( items =>
-      Ok(Json.toJson(items))
-      )
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      seedsService.listAllItems map (items =>
+        Ok(Json.toJson(items))
+        )
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def getAllSeedsView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -25,8 +34,16 @@ class SeedsController @Inject()(cc: MessagesControllerComponents, seedsService: 
   }
 
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    seedsService.getItem(id) map { item =>
-      Ok(Json.toJson(item))
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      seedsService.getItem(id) map { item =>
+        Ok(Json.toJson(item))
+      }
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
     }
   }
 
@@ -39,16 +56,24 @@ class SeedsController @Inject()(cc: MessagesControllerComponents, seedsService: 
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    SeedsForm.form.bindFromRequest().fold(
-      // if any error in submitted data
-      errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
-      },
-      data => {
-        val newSeedItem = Seeds(0, data.name, data.quantity, data.weight, data.price, data.description)
-        seedsService.addItem(newSeedItem).map(_ => Redirect(routes.SeedsController.getAll()))
-      })
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      SeedsForm.form.bindFromRequest().fold(
+        // if any error in submitted data
+        errorForm => {
+          errorForm.errors.foreach(println)
+          Future.successful(BadRequest("Error!"))
+        },
+        data => {
+          val newSeedItem = Seeds(0, data.name, data.quantity, data.weight, data.price, data.description)
+          seedsService.addItem(newSeedItem).map(_ => Redirect(routes.SeedsController.getAll()))
+        })
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def addSeedView: Action[AnyContent] = Action.async { implicit request =>
@@ -69,16 +94,24 @@ class SeedsController @Inject()(cc: MessagesControllerComponents, seedsService: 
   }
 
   def updateSeed: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    SeedsForm.updateForm.bindFromRequest().fold(
-      // if any error in submitted data
-      errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
-      },
-      data => {
-        val seedItem = Seeds(data.id, data.name, data.quantity, data.weight, data.price, data.description)
-        seedsService.updateItem(seedItem).map(_ => Redirect(routes.SeedsController.getAll()))
-      })
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      SeedsForm.updateForm.bindFromRequest().fold(
+        // if any error in submitted data
+        errorForm => {
+          errorForm.errors.foreach(println)
+          Future.successful(BadRequest("Error!"))
+        },
+        data => {
+          val seedItem = Seeds(data.id, data.name, data.quantity, data.weight, data.price, data.description)
+          seedsService.updateItem(seedItem).map(_ => Redirect(routes.SeedsController.getAll()))
+        })
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def updateSeedView(id: Long): Action[AnyContent] = Action.async { implicit request: MessagesRequest[AnyContent] =>
@@ -90,8 +123,16 @@ class SeedsController @Inject()(cc: MessagesControllerComponents, seedsService: 
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    seedsService.deleteItem(id) map { res =>
-      Redirect(routes.SeedsController.getAll())
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      seedsService.deleteItem(id) map { res =>
+        Redirect(routes.SeedsController.getAll())
+      }
+    }
+    else {
+
+      Future {
+        Forbidden("Wrong Auth")
+      }
     }
   }
 }

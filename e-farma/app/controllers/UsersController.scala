@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.request.Common
 import javax.inject._
 import models.entities.{History, Users}
 import models.forms.{UsersForm, UsersUpdateFormData}
@@ -12,7 +13,7 @@ import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
 @Singleton
-class UsersController @Inject()(cc: MessagesControllerComponents, usersService: UsersService, historyService: HistoryService) extends MessagesAbstractController(cc) {
+class UsersController @Inject()(cc: MessagesControllerComponents, usersService: UsersService, historyService: HistoryService, common: Common) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     usersService.listAllItems map ( items =>
@@ -80,21 +81,27 @@ class UsersController @Inject()(cc: MessagesControllerComponents, usersService: 
 
   def updateUser = Action.async { implicit request =>
     println("update")
-    UsersForm.updateForm.bindFromRequest.fold(
-      errorForm => {
-        Future.successful(
-          BadRequest(views.html.users.updateuser(errorForm))
-        )
-      },
-      user => {
-        println(" user " + user)
-        val userItem = Users(user.id, user.name, user.surname, user.email, user.telephone,
-          user.city, user.street, user.buildingNumber, user.apartmentNumber)
-        usersService.updateItem(userItem).map { _ =>
-          Redirect(routes.UsersController.getAll())
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      println(UsersForm.updateForm.bindFromRequest)
+      UsersForm.updateForm.bindFromRequest.fold(
+        errorForm => {
+          Future.successful(
+            BadRequest(views.html.users.updateuser(errorForm))
+          )
+        },
+        user => {
+          println(" user " + user)
+          val userItem = Users(user.id, user.name, user.surname, user.email, user.telephone,
+            user.city, user.street, user.buildingNumber, user.apartmentNumber)
+          usersService.updateItem(userItem).map { _ =>
+            Redirect(routes.UsersController.getAll())
+          }
         }
-      }
-    )
+      )
+    }
+    else {
+      Future {Forbidden("Wrong Auth")}
+    }
 
   }
 

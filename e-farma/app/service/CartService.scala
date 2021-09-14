@@ -26,22 +26,23 @@ class CartService @Inject()(userService: UsersService, buyService: BuyService, u
 
   def addElementToCart(element: CartItem): String = {
 
+    println("dodałem ")
     if ( listUsersProducts.contains(element.userId)){
-      var index: String = element.tableName+element.productId
+      val index: String = element.tableName+element.productId
       println(index)
       if ( listUsersProducts(element.userId).contains(index) ){
-      var quantity: Int = listUsersProducts(element.userId)(index).quantity + 1
+      val quantity: Int = element.quantity
       println(quantity)
         listUsersProducts = listUsersProducts.updated(element.userId,
           listUsersProducts(element.userId).updated(index,
             CartItem(element.userId, element.productId, element.productName, element.tableName, quantity)))
       }else {
-        var newList = listUsersProducts(element.userId) + (index -> element)
+        val newList = listUsersProducts(element.userId) + (index -> element)
         listUsersProducts = listUsersProducts.updated(element.userId, newList)
       }
     }
     else {
-      var index: String = element.tableName+element.productId
+      val index: String = element.tableName+element.productId
       listUsersProducts = Map(element.userId -> Map(index->element))
     }
     "ok"

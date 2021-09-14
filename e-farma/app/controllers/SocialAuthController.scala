@@ -26,6 +26,7 @@ class SocialAuthController @Inject()(scc: DefaultSilhouetteControllerComponents,
           } yield {
             val Token(name, value) = CSRF.getToken.get
             result.withCookies(Cookie(name, value, httpOnly = false))
+              .withCookies(Cookie("Authorization", user.email+user.loginInfo.providerKey, httpOnly = false))
               .withCookies(Cookie("Id", user.id.toString, httpOnly = false))
           }
         }

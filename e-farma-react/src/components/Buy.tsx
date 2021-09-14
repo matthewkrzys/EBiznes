@@ -12,8 +12,12 @@ const Buy = () => {
         axios
             .get(Common.URL + '/api/cart/buy/'+Common.ID, {
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Csrf-Token': Common.csrf,
+                    'Authorization': Common.authorization
                 },
+                withCredentials: true,
                 timeout: 10000,
             })
             .then((response) => {

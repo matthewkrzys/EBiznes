@@ -20,6 +20,7 @@ const Address: React.FC = () => {
 
     React.useEffect(() => {
         console.log(localStorage.getItem("email"))
+        console.log(Common.csrf)
         axios
             .get<InterfaceAddress>(Common.URL + '/api/user/email/'+ localStorage.getItem("email"), {
                 headers: {

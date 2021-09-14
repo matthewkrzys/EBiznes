@@ -13,7 +13,9 @@ const Login = () => {
         axios({
             method: 'post',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin':'http://localhost:3000',
             },
             url: Common.URL + '/signIn',
             data: {
@@ -44,7 +46,7 @@ const Login = () => {
                 </label>
                 <label>
                     <p>Password</p>
-                    <input {...register("password")} />
+                    <input type="password" {...register("password")} />
                 </label>
                 <div>
                     <a href="/">

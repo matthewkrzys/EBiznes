@@ -45,7 +45,7 @@ function SignUp() {
 
                 <div>
                     <label htmlFor="password">Password</label>
-                    <input {...register("password")} />
+                    <input type="password" {...register("password")} />
                 </div>
 
                 <div>

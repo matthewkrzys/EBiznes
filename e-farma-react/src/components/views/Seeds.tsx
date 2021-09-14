@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import addToCart from "../elements/AddToCart";
+import {Common} from "../Common";
 
 
 interface InterfaceSeeds {
@@ -25,8 +26,12 @@ const Seeds = () => {
         axios
             .get<InterfaceSeeds[]>('http://localhost:9000/api/seeds', {
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Csrf-Token': Common.csrf,
+                    'Authorization': Common.authorization
                 },
+                withCredentials: true,
                 timeout: 10000,
             })
             .then((response) => {

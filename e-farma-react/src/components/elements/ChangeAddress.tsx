@@ -10,8 +10,10 @@ function ChangeAddress() {
         axios({
             method: 'post',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
+                'Csrf-Token': Common.csrf,
+                'Authorization': Common.authorization
             },
             url: Common.URL + '/api/user/update ',
             data: {
@@ -27,7 +29,7 @@ function ChangeAddress() {
             },
             withCredentials: true
         });
-        window.location.href = "/statusOrder"
+        // window.location.href = "/statusOrder"
 
     }
 

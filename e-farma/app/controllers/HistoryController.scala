@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.request.Common
 import javax.inject._
 import models.entities.History
 import models.forms.HistoryForm
@@ -11,7 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class HistoryController @Inject()(cc: ControllerComponents, historyService: HistoryService) extends AbstractController(cc) {
+class HistoryController @Inject()(cc: ControllerComponents, historyService: HistoryService, common: Common) extends AbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     historyService.listAllItems map ( items =>

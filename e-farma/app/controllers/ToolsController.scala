@@ -1,5 +1,6 @@
 package controllers
 
+import controllers.request.Common
 import javax.inject._
 import models.entities.Tools
 import models.forms.{ToolsForm, ToolsUpdateFormData}
@@ -11,12 +12,19 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 @Singleton
-class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: ToolsService) extends MessagesAbstractController(cc) {
+class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: ToolsService, common: Common) extends MessagesAbstractController(cc) {
 
   def getAll(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    toolsService.listAllItems map ( items =>
-      Ok(Json.toJson(items))
-      )
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      toolsService.listAllItems map (items =>
+        Ok(Json.toJson(items))
+        )
+    }
+    else {
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def getAllToolsView(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
@@ -25,8 +33,15 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
   }
 
   def getById(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    toolsService.getItem(id) map { item =>
-      Ok(Json.toJson(item))
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      toolsService.getItem(id) map { item =>
+        Ok(Json.toJson(item))
+      }
+    }
+    else {
+      Future {
+        Forbidden("Wrong Auth")
+      }
     }
   }
 
@@ -39,19 +54,25 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
   }
 
   def add(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    ToolsForm.form.bindFromRequest().fold(
-      errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
-      },
-      data => {
-        val newSeedItem = Tools(0, data.name, data.quantity, data.price, data.description)
-        toolsService.addItem(newSeedItem).map(_ => Redirect(routes.ToolsController.getAll()))
-      })
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      ToolsForm.form.bindFromRequest().fold(
+        errorForm => {
+          errorForm.errors.foreach(println)
+          Future.successful(BadRequest("Error!"))
+        },
+        data => {
+          val newSeedItem = Tools(0, data.name, data.quantity, data.price, data.description)
+          toolsService.addItem(newSeedItem).map(_ => Redirect(routes.ToolsController.getAll()))
+        })
+    }
+    else {
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def addToolView(): Action[AnyContent] = Action.async { implicit request =>
-
     ToolsForm.form.bindFromRequest.fold(
       errorForm => {
         Future.successful(
@@ -64,20 +85,26 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
         }
       }
     )
-
   }
 
 
   def updateTool: Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    ToolsForm.updateForm.bindFromRequest().fold(
-      errorForm => {
-        errorForm.errors.foreach(println)
-        Future.successful(BadRequest("Error!"))
-      },
-      data => {
-        val seedItem = Tools(data.id, data.name, data.quantity, data.price, data.description)
-        toolsService.updateItem(seedItem).map(_ => Redirect(routes.ToolsController.getAll()))
-      })
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      ToolsForm.updateForm.bindFromRequest().fold(
+        errorForm => {
+          errorForm.errors.foreach(println)
+          Future.successful(BadRequest("Error!"))
+        },
+        data => {
+          val seedItem = Tools(data.id, data.name, data.quantity, data.price, data.description)
+          toolsService.updateItem(seedItem).map(_ => Redirect(routes.ToolsController.getAll()))
+        })
+    }
+    else {
+      Future {
+        Forbidden("Wrong Auth")
+      }
+    }
   }
 
   def updateToolView(id: Long): Action[AnyContent] = Action.async { implicit request: MessagesRequest[AnyContent] =>
@@ -89,8 +116,15 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
   }
 
   def delete(id: Long): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    toolsService.deleteItem(id) map { res =>
-      Redirect(routes.ToolsController.getAll())
+    if (common.checkAuth(request.headers.toMap("Cookie").toString())) {
+      toolsService.deleteItem(id) map { res =>
+        Redirect(routes.ToolsController.getAll())
+      }
+    }
+    else {
+      Future {
+        Forbidden("Wrong Auth")
+      }
     }
   }
 }

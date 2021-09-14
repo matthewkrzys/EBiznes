@@ -25,8 +25,12 @@ const StatusOrder = () => {
         axios
             .get<InterfaceStatusOrder[]>(Common.URL + '/api/cart/statusOrder/'+Common.ID, {
                 headers: {
+                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
+                    'Csrf-Token': Common.csrf,
+                    'Authorization': Common.authorization
                 },
+                withCredentials: true,
                 timeout: 10000,
             })
             .then((response) => {
@@ -53,7 +57,7 @@ const StatusOrder = () => {
                             </thead>
                             <tbody>
                             {statusOrder.map((element) => (
-                                <tr>
+                                <tr key={element.productId+element.tableName}>
                                     <td>{element.tableName}</td>
                                     <td>{element.productName}</td>
                                     <td>{element.quantity}</td>

@@ -9,8 +9,12 @@ const addToCart = (id: number, name: string, tableName: string) => {
         axios({
             method: 'post',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
+                'Csrf-Token': Common.csrf,
+                'Authorization': Common.authorization
             },
+            withCredentials: true,
             url: Common.URL + '/api/cart/add',
             data: {
                 userId: Common.ID,
