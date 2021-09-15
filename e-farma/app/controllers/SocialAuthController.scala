@@ -2,6 +2,7 @@ package controllers
 
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
 import com.mohiva.play.silhouette.impl.providers._
+import controllers.request.Common
 import javax.inject.Inject
 import play.api.mvc.{Action, AnyContent, Cookie, Request}
 import play.filters.csrf.CSRF.Token
@@ -9,7 +10,7 @@ import play.filters.csrf.{CSRF, CSRFAddToken}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class SocialAuthController @Inject()(scc: DefaultSilhouetteControllerComponents, addToken: CSRFAddToken)(implicit ex: ExecutionContext) extends SilhouetteController(scc) {
+class SocialAuthController @Inject()(scc: DefaultSilhouetteControllerComponents, addToken: CSRFAddToken, common: Common)(implicit ex: ExecutionContext) extends SilhouetteController(scc) {
 
   def authenticate(provider: String): Action[AnyContent] = addToken(Action.async { implicit request: Request[AnyContent] =>
     (socialProviderRegistry.get[SocialProvider](provider) match {
@@ -26,7 +27,7 @@ class SocialAuthController @Inject()(scc: DefaultSilhouetteControllerComponents,
           } yield {
             val Token(name, value) = CSRF.getToken.get
             result.withCookies(Cookie(name, value, httpOnly = false))
-              .withCookies(Cookie("Authorization", user.email+user.loginInfo.providerKey, httpOnly = false))
+              .withCookies(Cookie("Authorization", common.md5(user.email+user.loginInfo.providerKey), httpOnly = false))
               .withCookies(Cookie("Id", user.id.toString, httpOnly = false))
           }
         }

@@ -2,7 +2,7 @@ package controllers
 
 import com.mohiva.play.silhouette.api.actions.SecuredRequest
 import com.mohiva.play.silhouette.api.exceptions.ProviderException
-import com.mohiva.play.silhouette.api.util.{Credentials, PasswordInfo}
+import com.mohiva.play.silhouette.api.util.Credentials
 import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
 import controllers.request.{Common, SignInRequest}
 import javax.inject.{Inject, Singleton}
@@ -40,11 +40,11 @@ class SignInController @Inject()(scc: DefaultSilhouetteControllerComponents, add
           case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
         }
       }
-      .recover {
-        case _: ProviderException =>
-          Forbidden("Wrong credentials")
-            .discardingCookies(DiscardingCookie(name = "PLAY_SESSION"))
-      }
+    .recover {
+      case _: ProviderException =>
+        Forbidden("Wrong credentials")
+          .discardingCookies(DiscardingCookie(name = "PLAY_SESSION"))
+    }
   })
 
   def signOut: Action[AnyContent] = securedAction.async { implicit request: SecuredRequest[EnvType, AnyContent] =>
@@ -52,7 +52,9 @@ class SignInController @Inject()(scc: DefaultSilhouetteControllerComponents, add
       .map(_.discardingCookies(
         DiscardingCookie(name = "csrfToken"),
         DiscardingCookie(name = "PLAY_SESSION"),
-        DiscardingCookie(name = "OAuth2State")
+        DiscardingCookie(name = "OAuth2State"),
+        DiscardingCookie(name = "Id"),
+        DiscardingCookie(name = "Authorization"),
       ))
   }
 }

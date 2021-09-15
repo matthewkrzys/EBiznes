@@ -14,8 +14,7 @@ const Login = () => {
             method: 'post',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin':'http://localhost:3000',
+                "Content-Type": "application/json; charset=utf-8",
             },
             url: Common.URL + '/signIn',
             data: {

@@ -10,8 +10,11 @@ function SignUp() {
         axios({
             method: 'post',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json',
+
             },
+            // withCredentials: true,
             url: Common.URL + '/signUp',
             data: {
                 name: data.name,

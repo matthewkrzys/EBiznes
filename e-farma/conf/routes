@@ -146,8 +146,8 @@ GET           /api/cart/statusOrder/:userId                    controllers.CartC
 GET           /api/cart/buy/:userId                    controllers.CartController.getBuy(userId: Int)
 
 # Authentication
+#+nocsrf
 POST        /signUp                                   controllers.SignUpController.signUp
-+nocsrf
 POST        /signIn                                   controllers.SignInController.signIn
 POST        /signOut                                  controllers.SignInController.signOut
 GET         /authenticate/:provider        controllers.SocialAuthController.authenticate(provider: String)
