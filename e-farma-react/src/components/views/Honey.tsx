@@ -23,7 +23,7 @@ const Honey = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceHoney[]>('http://localhost:9000/api/honeys', {
+            .get<InterfaceHoney[]>(Common.URL+'/api/honeys', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

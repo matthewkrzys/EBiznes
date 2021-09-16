@@ -25,7 +25,7 @@ const Flowers = () => {
     React.useEffect(() => {
         console.log(Common.authorization)
         axios
-            .get<InterfaceFlowers[]>('http://localhost:9000/api/flowers', {
+            .get<InterfaceFlowers[]>(Common.URL + '/api/flowers', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

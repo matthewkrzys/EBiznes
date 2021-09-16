@@ -24,7 +24,7 @@ const Plants = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfacePlants[]>('http://localhost:9000/api/plants', {
+            .get<InterfacePlants[]>(Common.URL+'/api/plants', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

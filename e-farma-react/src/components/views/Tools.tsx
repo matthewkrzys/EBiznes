@@ -23,7 +23,7 @@ const Tools = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceTools[]>('http://localhost:9000/api/tools', {
+            .get<InterfaceTools[]>(Common.URL+'/api/tools', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

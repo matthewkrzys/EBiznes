@@ -22,7 +22,7 @@ const Vegetables = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceVegetables[]>('http://localhost:9000/api/vegetables', {
+            .get<InterfaceVegetables[]>(Common.URL+'/api/vegetables', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

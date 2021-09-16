@@ -24,7 +24,7 @@ const Seeds = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceSeeds[]>('http://localhost:9000/api/seeds', {
+            .get<InterfaceSeeds[]>(Common.URL+'/api/seeds', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

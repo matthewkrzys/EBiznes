@@ -22,7 +22,7 @@ const Fruits = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfaceFruits[]>('http://localhost:9000/api/fruits', {
+            .get<InterfaceFruits[]>(Common.URL+'/api/fruits', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

@@ -24,7 +24,7 @@ const Preserves = () => {
 
     React.useEffect(() => {
         axios
-            .get<InterfacePreserves[]>('http://localhost:9000/api/preserves', {
+            .get<InterfacePreserves[]>(Common.URL+'/api/preserves', {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
