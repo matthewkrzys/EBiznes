@@ -12,6 +12,8 @@ import scala.util.Success
 
 class Common  @Inject()(userRepository: UserRepository) {
 
+  val ERROR_MESSAGE = "Wrong Auth"
+
   def checkAuth(value: String): Boolean = {
     var isAuth = false;
     val cookieArray = value.split(";")

@@ -22,7 +22,7 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -40,7 +40,7 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -67,7 +67,7 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -102,7 +102,7 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -123,7 +123,7 @@ class ToolsController @Inject()(cc: MessagesControllerComponents, toolsService: 
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }

@@ -23,7 +23,7 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -42,7 +42,7 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -71,7 +71,7 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -108,7 +108,7 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -130,7 +130,7 @@ class PreservesController @Inject()(cc: MessagesControllerComponents, preservesS
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }

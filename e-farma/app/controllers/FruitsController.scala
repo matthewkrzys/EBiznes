@@ -23,7 +23,7 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -42,7 +42,7 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -71,7 +71,7 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -109,7 +109,7 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -132,7 +132,7 @@ class FruitsController @Inject()(cc: MessagesControllerComponents, fruitsService
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }

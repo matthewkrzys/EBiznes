@@ -23,7 +23,7 @@ class VegetablesController @Inject()(cc: MessagesControllerComponents, vegetable
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -42,7 +42,7 @@ class VegetablesController @Inject()(cc: MessagesControllerComponents, vegetable
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -70,7 +70,7 @@ class VegetablesController @Inject()(cc: MessagesControllerComponents, vegetable
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -108,7 +108,7 @@ class VegetablesController @Inject()(cc: MessagesControllerComponents, vegetable
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -131,7 +131,7 @@ class VegetablesController @Inject()(cc: MessagesControllerComponents, vegetable
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }

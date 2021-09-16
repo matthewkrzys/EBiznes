@@ -27,7 +27,7 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -45,7 +45,7 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -72,7 +72,7 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -108,7 +108,7 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -129,7 +129,7 @@ class FlowersController @Inject()(cc: MessagesControllerComponents, flowersServi
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }

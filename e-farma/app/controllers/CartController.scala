@@ -29,7 +29,7 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -48,7 +48,7 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
     }
     else
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
   }
 
@@ -60,7 +60,7 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -73,7 +73,7 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -86,7 +86,7 @@ class CartController @Inject()(cc: MessagesControllerComponents, cartService: Ca
     }
     else {
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }

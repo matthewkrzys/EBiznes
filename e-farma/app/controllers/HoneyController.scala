@@ -23,7 +23,7 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -42,7 +42,7 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -70,7 +70,7 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -108,7 +108,7 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
@@ -130,7 +130,7 @@ class HoneyController @Inject()(cc: MessagesControllerComponents, honeysService:
     else {
 
       Future {
-        Forbidden("Wrong Auth")
+        Forbidden(common.ERROR_MESSAGE)
       }
     }
   }
